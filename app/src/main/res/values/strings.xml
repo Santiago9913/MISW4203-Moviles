@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Vinilos</string>
     <string name="welcome">Welcome %1$s</string>
-    <string name="sample">Sample</string>
 </resources>
