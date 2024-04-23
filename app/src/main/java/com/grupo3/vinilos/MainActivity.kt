@@ -18,9 +18,6 @@ import androidx.navigation.navArgument
 import com.grupo3.vinilos.ui.theme.VinilosTheme
 import com.grupo3.vinilos.home.HomeScreen
 class MainActivity : ComponentActivity() {
-
-    private val LocalNavController = compositionLocalOf<NavController> { error("No NavController found") }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,20 +35,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!", modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    VinilosTheme {
-        Greeting("Android")
     }
 }
