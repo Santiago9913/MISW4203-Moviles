@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.grupo3.vinilos.album.list.AlbumList
 import com.grupo3.vinilos.artist.list.ArtistList
 import com.grupo3.vinilos.collector.list.CollectorList
+import com.grupo3.vinilos.ui.theme.Primary
 import com.grupo3.vinilos.utils.Screen
 
 @Composable
@@ -39,12 +43,18 @@ fun HomeScreen(
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = Primary.copy(alpha = 0.4f)
+            ) {
                 val navBackStackEntry by innerNavController.currentBackStackEntryAsState();
                 val currentDestination = navBackStackEntry?.destination;
 
                 items.forEach {
                     screen -> NavigationBarItem(
+                    colors =NavigationBarItemDefaults.colors(
+                        selectedIconColor = Primary.copy(alpha = 0.5f),
+                        indicatorColor = Primary.copy(alpha = 0.5f)
+                    ),
                     selected = currentDestination?.hierarchy?.any {
                         it.route == screen.route
                     } == true,
