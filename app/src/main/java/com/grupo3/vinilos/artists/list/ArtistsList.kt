@@ -30,6 +30,7 @@ import com.grupo3.vinilos.artists.dto.ArtistDto
 import com.grupo3.vinilos.ui.theme.Typography
 import java.time.LocalDate
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.grupo3.vinilos.ui.theme.UiPadding
 
 
 @Composable
@@ -45,9 +46,9 @@ fun ArtistList(
     LazyColumn(
         Modifier
             .padding(
-                top = 8.dp,
-                start = 16.dp,
-                end = 16.dp
+                top = UiPadding.medium,
+                start = UiPadding.large,
+                end = UiPadding.large,
             )
             .fillMaxWidth()
             .fillMaxHeight()
@@ -68,14 +69,14 @@ fun ArtistList(
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(bottom = UiPadding.medium)
                         ) {
                             AsyncImage(
                                 model = artist.image,
                                 contentDescription = artist.name,
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
-                                    .size(48.dp)
+                                    .size(UiPadding.xxLarge)
                                     .clip(
                                         CircleShape
                                     )
