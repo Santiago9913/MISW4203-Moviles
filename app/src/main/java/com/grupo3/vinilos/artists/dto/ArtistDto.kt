@@ -1,5 +1,6 @@
 package com.grupo3.vinilos.artists.dto
 
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.util.Date
 
@@ -8,10 +9,5 @@ data class ArtistDto(
     val name: String,
     val image: String,
     val description: String,
-    val birthDate: LocalDate?,
-    val creationDate: LocalDate?,
-    val type: String,
-    val bandId: String?,
-) {
+)
 
-}
