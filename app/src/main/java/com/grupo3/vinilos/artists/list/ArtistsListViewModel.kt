@@ -22,9 +22,10 @@ class ArtistsViewModel : ViewModel() {
                 val bands = repository.getBands();
                 val musicians = repository.getMusicians();
                 val artists = bands + musicians
+                val sortedArtists = artists.sortedBy { it.name }
                 _state.update { currentState ->
                     currentState.copy(
-                        artists = artists,
+                        artists = sortedArtists,
                     )
                 }
             } catch (e: Exception) {
