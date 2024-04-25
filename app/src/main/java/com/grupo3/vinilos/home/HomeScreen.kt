@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,7 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.grupo3.vinilos.album.list.AlbumList
-import com.grupo3.vinilos.artist.list.ArtistList
+import com.grupo3.vinilos.artists.list.ArtistList
 import com.grupo3.vinilos.collector.list.CollectorList
 import com.grupo3.vinilos.ui.theme.Primary
 import com.grupo3.vinilos.utils.Screen
@@ -44,44 +42,53 @@ fun HomeScreen(
     Scaffold(
         bottomBar = {
             NavigationBar(
-                containerColor = Primary.copy(alpha = 0.4f)
+                containerColor = Primary.copy(alpha = 0.3f)
             ) {
                 val navBackStackEntry by innerNavController.currentBackStackEntryAsState();
                 val currentDestination = navBackStackEntry?.destination;
 
-                items.forEach {
-                    screen -> NavigationBarItem(
-                    colors =NavigationBarItemDefaults.colors(
-                        selectedIconColor = Primary.copy(alpha = 0.5f),
-                        indicatorColor = Primary.copy(alpha = 0.5f)
-                    ),
-                    selected = currentDestination?.hierarchy?.any {
-                        it.route == screen.route
-                    } == true,
-                    label = {
+                items.forEach { screen ->
+                    NavigationBarItem(
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = Primary.copy(alpha = 0.5f),
+                            indicatorColor = Primary.copy(alpha = 0.5f)
+                        ),
+                        selected = currentDestination?.hierarchy?.any {
+                            it.route == screen.route
+                        } == true,
+                        label = {
                             Text(text = screen.label)
-                    },
-                    onClick = {
-                              innerNavController.navigate(screen.route) {
-                                  popUpTo(innerNavController.graph.startDestinationId) {
-                                      saveState = true;
-                                  }
-                                  launchSingleTop = true;
-                                  restoreState = true;
+                        },
+                        onClick = {
+                            innerNavController.navigate(screen.route) {
+                                popUpTo(innerNavController.graph.startDestinationId) {
+                                    saveState = true;
+                                }
+                                launchSingleTop = true;
+                                restoreState = true;
 
-                              }
-                    },
-                    icon = { Image(painter = painterResource(id = screen.icon), contentDescription = "",
-                        contentScale = ContentScale.Fit, modifier = Modifier
-                            .width(24.dp)
-                            .height(24.dp) )
-                           },
+                            }
+                        },
+                        icon = {
+                            Image(
+                                painter = painterResource(id = screen.icon),
+                                contentDescription = "",
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .width(24.dp)
+                                    .height(24.dp)
+                            )
+                        },
                     )
                 }
             }
         }
     ) { innerPadding ->
-        NavHost(innerNavController, startDestination = Screen.Albums.route, Modifier.padding(innerPadding)) {
+        NavHost(
+            innerNavController,
+            startDestination = Screen.Albums.route,
+            Modifier.padding(innerPadding)
+        ) {
             composable(Screen.Albums.route) { AlbumList() }
             composable(Screen.Artists.route) { ArtistList() }
             composable(Screen.Collectors.route) { CollectorList() }
