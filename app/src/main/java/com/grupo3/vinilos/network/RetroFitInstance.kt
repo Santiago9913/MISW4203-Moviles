@@ -1,9 +1,9 @@
 package com.grupo3.vinilos.network
 
+import com.grupo3.vinilos.album.service.AlbumService
 import com.grupo3.vinilos.artists.service.ArtistsService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.grupo3.vinilos.album.service.AlbumService
 
 object RetroFitInstance {
     private const val BASE_URL = "https://backvynilsmiso-vnt7ed7xsq-uc.a.run.app/"
