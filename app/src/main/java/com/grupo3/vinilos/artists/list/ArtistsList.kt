@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,29 +41,32 @@ fun ArtistList(
         viewModel.getArtists();
     }
 
-    LazyColumn(
-        Modifier
-            .padding(
-                top = UiPadding.medium,
-                start = UiPadding.large,
-                end = UiPadding.large,
-            )
-            .fillMaxWidth()
-            .fillMaxHeight()
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        items(state.artists) { artist ->
-            Box(
+        if (state.artists.isEmpty()) {
+            Text(text = "ARTISTAS NO DISPONIBLES EN ESTE MOMENTO", style = Typography.titleMedium)
+        } else {
+            LazyColumn(
                 Modifier
-                    .fillMaxHeight()
+                    .padding(
+                        top = UiPadding.medium,
+                        start = UiPadding.large,
+                        end = UiPadding.large,
+                    )
                     .fillMaxWidth()
-                    .clickable {
-                        println(artist.id)
-                    }
+                    .fillMaxHeight()
             ) {
-                Column {
-                    if (state.artists.isEmpty()) {
-                        Text(text = "Cargando...")
-                    } else {
+                items(state.artists) { artist ->
+                    Box(
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                            .clickable {
+                                println(artist.id)
+                            }
+                    ) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
@@ -91,7 +95,6 @@ fun ArtistList(
                                 )
                             }
                         }
-
                     }
                 }
             }
