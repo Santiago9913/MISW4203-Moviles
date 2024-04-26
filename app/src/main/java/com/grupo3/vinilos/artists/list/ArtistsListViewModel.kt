@@ -21,7 +21,8 @@ class ArtistsViewModel : ViewModel() {
             try {
                 val bands = repository.getBands();
                 val musicians = repository.getMusicians();
-                val artists = bands + musicians
+                var artists = bands + musicians
+                artists = artists.sortedBy { it.name }
                 _state.update { currentState ->
                     currentState.copy(
                         artists = artists,

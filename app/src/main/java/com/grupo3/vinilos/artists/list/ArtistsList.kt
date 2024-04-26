@@ -23,12 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.grupo3.vinilos.artists.dto.ArtistDto
 import com.grupo3.vinilos.ui.theme.Typography
-import java.time.LocalDate
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.ui.theme.UiPadding
 
