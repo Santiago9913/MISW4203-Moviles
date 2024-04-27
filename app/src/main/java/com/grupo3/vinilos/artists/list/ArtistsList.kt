@@ -1,12 +1,14 @@
 package com.grupo3.vinilos.artists.list
 
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,11 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.grupo3.vinilos.ui.theme.Typography
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.UiPadding
 
 
@@ -34,35 +39,48 @@ import com.grupo3.vinilos.ui.theme.UiPadding
 fun ArtistList(
     viewModel: ArtistsViewModel = viewModel()
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+
+        }
+    }
     LaunchedEffect(Unit) {
         viewModel.getArtists();
     }
 
-    LazyColumn(
-        Modifier
-            .padding(
-                top = UiPadding.medium,
-                start = UiPadding.large,
-                end = UiPadding.large,
-            )
-            .fillMaxWidth()
-            .fillMaxHeight()
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        items(state.artists) { artist ->
-            Box(
+        if (state.artists.isEmpty()) {
+            Text(
+                text = stringResource(id = R.string.artists_not_available),
+                style = Typography.titleMedium
+            )
+        } else {
+            LazyColumn(
                 Modifier
-                    .fillMaxHeight()
+                    .padding(
+                        top = UiPadding.medium,
+                        start = UiPadding.large,
+                        end = UiPadding.large,
+                    )
                     .fillMaxWidth()
-                    .clickable {
-                        println(artist.id)
-                    }
+                    .fillMaxHeight()
             ) {
-                Column {
-                    if (state.artists.isEmpty()) {
-                        Text(text = "Cargando...")
-                    } else {
+                items(state.artists) { artist ->
+                    Box(
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                            .clickable {
+                                // TODO: implement the action to go to the artist detail screen
+                            }
+                    ) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
@@ -91,7 +109,6 @@ fun ArtistList(
                                 )
                             }
                         }
-
                     }
                 }
             }

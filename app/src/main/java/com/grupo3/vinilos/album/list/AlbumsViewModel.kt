@@ -1,8 +1,8 @@
-package com.grupo3.vinilos.artists.list
+package com.grupo3.vinilos.album.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grupo3.vinilos.artists.service.ArtistsRepository
+import com.grupo3.vinilos.album.service.AlbumRepository
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,22 +11,21 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class ArtistsViewModel : ViewModel() {
-    private val repository = ArtistsRepository();
+class AlbumsViewModel : ViewModel() {
+    private val repository = AlbumRepository()
 
-    private val _state = MutableStateFlow(ArtistsListState());
-    val state: StateFlow<ArtistsListState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(AlbumsListState())
+    val state: StateFlow<AlbumsListState> = _state.asStateFlow()
 
-    fun getArtists() {
+    fun getAlbums() {
         viewModelScope.launch {
             try {
-                val bands = repository.getBands();
-                val musicians = repository.getMusicians();
-                var artists = bands + musicians
-                artists = artists.sortedBy { it.name }
+                val albums = repository.getAlbums()
+
                 _state.update { currentState ->
                     currentState.copy(
-                        artists = artists,
+                        albums = albums,
+                        errorMessage = null
                     )
                 }
             } catch (e: Exception) {
