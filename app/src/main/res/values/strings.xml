@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Vinilos</string>
+    <string name="albums_not_available">ALBUMS NO DISPONIBLES EN ESTE MOMENTO</string>
+    <string name="artists_not_available">ARTISTAS NO DISPONIBLES EN ESTE MOMENTO</string>
 </resources>

@@ -3,6 +3,7 @@ package com.grupo3.vinilos.album.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grupo3.vinilos.album.service.AlbumRepository
+import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,10 +25,15 @@ class AlbumsViewModel : ViewModel() {
                 _state.update { currentState ->
                     currentState.copy(
                         albums = albums,
+                        errorMessage = null
                     )
                 }
             } catch (e: Exception) {
-                println(e)
+                _state.update { currentState ->
+                    currentState.copy(
+                        errorMessage = ERROR_MESSAGE
+                    )
+                }
             }
         }
     }

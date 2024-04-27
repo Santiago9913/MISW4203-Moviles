@@ -3,6 +3,7 @@ package com.grupo3.vinilos.artists.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grupo3.vinilos.artists.service.ArtistsRepository
+import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,7 +30,11 @@ class ArtistsViewModel : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
-                println(e)
+                _state.update { currentState ->
+                    currentState.copy(
+                        errorMessage = ERROR_MESSAGE
+                    )
+                }
             }
         }
     }

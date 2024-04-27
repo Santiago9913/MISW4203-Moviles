@@ -1,6 +1,7 @@
 package com.grupo3.vinilos.artists.list
 
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,11 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.grupo3.vinilos.ui.theme.Typography
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.UiPadding
 
 
@@ -35,8 +39,15 @@ import com.grupo3.vinilos.ui.theme.UiPadding
 fun ArtistList(
     viewModel: ArtistsViewModel = viewModel()
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+
+        }
+    }
     LaunchedEffect(Unit) {
         viewModel.getArtists();
     }
@@ -46,7 +57,10 @@ fun ArtistList(
         contentAlignment = Alignment.Center
     ) {
         if (state.artists.isEmpty()) {
-            Text(text = "ARTISTAS NO DISPONIBLES EN ESTE MOMENTO", style = Typography.titleMedium)
+            Text(
+                text = stringResource(id = R.string.artists_not_available),
+                style = Typography.titleMedium
+            )
         } else {
             LazyColumn(
                 Modifier
@@ -64,7 +78,7 @@ fun ArtistList(
                             .fillMaxHeight()
                             .fillMaxWidth()
                             .clickable {
-                                println(artist.id)
+                                // TODO: implement the action to go to the artist detail screen
                             }
                     ) {
                         Row(

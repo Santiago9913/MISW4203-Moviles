@@ -1,6 +1,6 @@
 package com.grupo3.vinilos.album.list
 
-
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,18 +19,29 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.platform.LocalContext
+import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
-
 
 @Composable
 fun AlbumList(
     viewModel: AlbumsViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.getAlbums()
@@ -41,7 +52,10 @@ fun AlbumList(
         contentAlignment = Alignment.Center
     ) {
         if (state.albums.isEmpty()) {
-            Text(text = "ALBUMS NO DISPONIBLES EN ESTE MOMENTO", style = Typography.titleMedium)
+            Text(
+                text = stringResource(id = R.string.albums_not_available),
+                style = Typography.titleMedium
+            )
         } else {
             LazyColumn(
                 Modifier
@@ -59,7 +73,7 @@ fun AlbumList(
                             .fillMaxHeight()
                             .fillMaxWidth()
                             .clickable {
-                                println(album.id)
+                                // TODO: implement the action to go to the album detail screen
                             }
                     ) {
                         Column {
