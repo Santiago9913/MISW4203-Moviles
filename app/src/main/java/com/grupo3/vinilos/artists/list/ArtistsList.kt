@@ -33,11 +33,13 @@ import com.grupo3.vinilos.ui.theme.Typography
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.utils.Screen
 
 
 @Composable
 fun ArtistList(
-    viewModel: ArtistsViewModel = viewModel()
+    viewModel: ArtistsViewModel = viewModel(),
+    navigateTo: (String) -> Unit
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsState()
@@ -79,6 +81,11 @@ fun ArtistList(
                             .fillMaxWidth()
                             .clickable {
                                 // TODO: implement the action to go to the artist detail screen
+                                var route = StringBuilder()
+                                    .append(Screen.ArtistDetail.route)
+                                    .toString()
+                                    .replace("{artistId}", artist.id.toString())
+                                navigateTo(route)
                             }
                     ) {
                         Row(
