@@ -3,10 +3,9 @@ package com.grupo3.vinilos.artists.detail
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.composable
@@ -19,7 +18,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ArtistDetailTest {
+class ArtistsTest {
 
     @get:Rule
     var rule = createComposeRule()
@@ -42,12 +41,14 @@ class ArtistDetailTest {
             }
         }
     }
+
     @Test
-    fun loginAsVisitante_showsNavigationBar(){
-        rule.onNodeWithText("Visitante").assertExists()
-        /* rule.onNode(hasText("Visitante")).performClick()
+    fun asVisitante_showListOfArtists(){
+        val artistName ="Queen"
+        rule.onNodeWithText("Visitante").assertExists().performClick()
         rule.onNode(hasText("Artistas")).assertExists()
-        rule.onNode(hasText("Albumes")).assertExists()
-        rule.onNode(hasText("Coleccionistas")).assertExists()*/
+        rule.waitUntil(4000L) {
+            rule.onAllNodesWithText(artistName).fetchSemanticsNodes().size == 1
+        }
     }
 }
