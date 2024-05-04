@@ -15,4 +15,12 @@ class ArtistsRepository {
         val data = artistsService.getMusicians();
         return data;
     }
+
+    suspend fun getMusician(id: Int): ArtistDto {
+        return artistsService.getMusicianById(id);
+    }
+
+    suspend fun getBand(id: Int): ArtistDto {
+        return artistsService.getBandById(id);
+    }
 }
