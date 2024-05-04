@@ -27,10 +27,12 @@ import androidx.compose.ui.platform.LocalContext
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.utils.Screen
 
 @Composable
 fun AlbumList(
-    viewModel: AlbumsViewModel = viewModel()
+    viewModel: AlbumsViewModel = viewModel(),
+    navigateTo: (String) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -73,7 +75,11 @@ fun AlbumList(
                             .fillMaxHeight()
                             .fillMaxWidth()
                             .clickable {
-                                // TODO: implement the action to go to the album detail screen
+                                var route = StringBuilder()
+                                    .append(Screen.AlbumDetail.route)
+                                    .toString()
+                                    .replace("{albumId}", album.id.toString())
+                                navigateTo(route)
                             }
                     ) {
                         Column {
