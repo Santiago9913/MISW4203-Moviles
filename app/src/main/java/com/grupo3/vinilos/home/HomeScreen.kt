@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.grupo3.vinilos.album.detail.AlbumDetail
 import com.grupo3.vinilos.album.list.AlbumList
 import com.grupo3.vinilos.artists.detail.ArtistDetail
 import com.grupo3.vinilos.artists.list.ArtistList
@@ -85,11 +86,11 @@ fun HomeScreen(
             startDestination = Screen.Albums.route,
             Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Albums.route) { AlbumList() }
+            composable(Screen.Albums.route) { AlbumList(navigateTo = { route:String -> navigateToWithState(route, innerNavController)  }  ) }
             composable(Screen.Artists.route ) { ArtistList(navigateTo = { route:String -> navigateToWithState(route, innerNavController)  }  ) }
             composable(Screen.Collectors.route) { CollectorList() }
             composable(Screen.ArtistDetail.route) { ArtistDetail() }
-
+            composable(Screen.AlbumDetail.route) { AlbumDetail() }
         }
     }
 }
