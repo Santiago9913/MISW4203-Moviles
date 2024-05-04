@@ -32,26 +32,34 @@ import androidx.compose.ui.unit.dp
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.utils.Screen
+import com.grupo3.vinilos.utils.navigateToWithState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumDetail(
-){
-    Box(modifier = Modifier.fillMaxSize()){
-        Column (modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(
-                top = UiPadding.medium,
-                start = UiPadding.medium,
-                end = UiPadding.medium,
-            )){
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .height(360.dp),
+    navigateTo: (String) -> Unit,
+    albumId: String?
+
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    top = UiPadding.medium,
+                    start = UiPadding.medium,
+                    end = UiPadding.medium,
+                )
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(360.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
-                ) {
+            ) {
 
                 /* TODO: ESTA IMAGEN SERA REEMPLAZADA POR LA IMAGEN DE LA API */
                 Image(
@@ -66,47 +74,62 @@ fun AlbumDetail(
                     contentDescription = stringResource(id = R.string.albums_not_available)
                 )
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = UiPadding.medium,
-                    bottom = UiPadding.medium,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = UiPadding.medium,
+                        bottom = UiPadding.medium,
+                    ),
                 horizontalArrangement = Arrangement.Center,
 
-            ) {
-                Text( text = "Titulo", fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize)
+                ) {
+                Text(
+                    text = "Titulo",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                )
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = UiPadding.medium,
-                    bottom = UiPadding.medium,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = UiPadding.medium,
+                        bottom = UiPadding.medium,
+                    ),
             ) {
-                Text( "Fecha de lanzamiento: 01/01/2000", style = MaterialTheme.typography.bodyLarge,  maxLines = 2)
+                Text(
+                    "Fecha de lanzamiento: 01/01/2000",
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 2
+                )
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = UiPadding.medium,
-                    bottom = UiPadding.medium,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = UiPadding.medium,
+                        bottom = UiPadding.medium,
+                    ),
             ) {
-                Text( "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. ", style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. ",
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = UiPadding.medium,
-                    bottom = UiPadding.medium,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = UiPadding.medium,
+                        bottom = UiPadding.medium,
+                    ),
                 horizontalArrangement = Arrangement.Start
             ) {
                 SuggestionChip(
                     colors = SuggestionChipDefaults.suggestionChipColors(
                         labelColor = Color.White,
-                        containerColor =  MaterialTheme.colorScheme.secondary,
+                        containerColor = MaterialTheme.colorScheme.secondary,
                         disabledContainerColor = MaterialTheme.colorScheme.secondary,
                         disabledLabelColor = Color.White
                     ),
@@ -114,14 +137,14 @@ fun AlbumDetail(
                     shape = RoundedCornerShape(8.dp),
                     onClick = {},
                     label = { Text("Salsa") },
-                    enabled =  false,
-                    border =  SuggestionChipDefaults.suggestionChipBorder(borderWidth = 0.dp)
+                    enabled = false,
+                    border = SuggestionChipDefaults.suggestionChipBorder(borderWidth = 0.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 SuggestionChip(
                     colors = SuggestionChipDefaults.suggestionChipColors(
                         labelColor = Color.White,
-                        containerColor =  MaterialTheme.colorScheme.secondary,
+                        containerColor = MaterialTheme.colorScheme.secondary,
                         disabledContainerColor = MaterialTheme.colorScheme.secondary,
                         disabledLabelColor = Color.White
                     ),
@@ -130,21 +153,26 @@ fun AlbumDetail(
                     onClick = {},
                     enabled = false,
                     label = { Text("EMI Music") },
-                    border =  SuggestionChipDefaults.suggestionChipBorder(borderWidth = 0.dp)
+                    border = SuggestionChipDefaults.suggestionChipBorder(borderWidth = 0.dp)
                 )
             }
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = UiPadding.medium,
-                    bottom = UiPadding.medium,
-                ),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = UiPadding.medium,
+                        bottom = UiPadding.medium,
+                    ),
                 horizontalArrangement = Arrangement.Start
-            ){
+            ) {
                 Button(
 
-                    modifier =  Modifier.fillMaxWidth().height(48.dp),
-                    onClick = {  },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    onClick = {
+
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent,
                     ),
