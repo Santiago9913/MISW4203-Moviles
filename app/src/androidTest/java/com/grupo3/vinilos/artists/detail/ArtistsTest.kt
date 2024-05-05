@@ -46,7 +46,7 @@ class ArtistsTest {
     fun asVisitante_showListOfArtists(){
         val artistName ="Queen"
         rule.onNodeWithText("Visitante").assertExists().performClick()
-        rule.onNode(hasText("Artistas")).assertExists()
+        rule.onNodeWithText("Artistas").assertExists().performClick()
         rule.waitUntil(4000L) {
             rule.onAllNodesWithText(artistName).fetchSemanticsNodes().size == 1
         }
