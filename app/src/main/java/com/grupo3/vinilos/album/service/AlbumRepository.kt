@@ -12,6 +12,10 @@ class AlbumRepository {
         return data;
     }
 
+    suspend fun getAlbumsById(albumId:Int): AlbumDto {
+        return albumsService.getAlbumById(albumId);
+    }
+
     suspend fun getSongs(albumId: Int?): List<SongDto> {
         return albumsService.getSongs(albumId)
     }

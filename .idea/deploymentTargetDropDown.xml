@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="app">
+      <entry key="AlbumDetailTest">
+        <State />
+      </entry>
+      <entry key="Tests in 'com.grupo3.vinilos'">
+        <State />
+      </entry>
+      <entry key="Vinilos">
         <State />
       </entry>
     </value>
