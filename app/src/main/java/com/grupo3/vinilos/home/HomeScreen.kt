@@ -17,10 +17,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.grupo3.vinilos.album.detail.AlbumDetail
 import com.grupo3.vinilos.album.detail.SongsList
 import com.grupo3.vinilos.album.list.AlbumList
@@ -105,11 +107,11 @@ fun HomeScreen(
             }
             composable(Screen.Collectors.route) { CollectorList() }
             composable(Screen.ArtistDetail.route) { ArtistDetail() }
-            composable(Screen.AlbumDetail.route) { backStackentry ->
+            composable(Screen.AlbumDetail.route, arguments = listOf(navArgument("albumId") { type = NavType.StringType })) { backStackentry ->
                 AlbumDetail(navigateTo = { route: String ->
                     navigateToWithState(
                         route,
-                        innerNavController
+                        innerNavController,
                     )
                 }, albumId = backStackentry.arguments?.getString("albumId"))
             }
