@@ -12,6 +12,6 @@ interface AlbumService {
     @GET("albums/{albumId}")
     suspend fun getAlbumById(@Path("albumId") albumId: Int): AlbumDto
 
-    @GET("{albumId}/tracks")
-    suspend fun getSongs(@Path("albumId") albumId: Int?): List<SongDto>
+    @GET("albums/{albumId}/tracks")
+    suspend fun getSongs(@Path("albumId") albumId: Int): List<SongDto>
 }

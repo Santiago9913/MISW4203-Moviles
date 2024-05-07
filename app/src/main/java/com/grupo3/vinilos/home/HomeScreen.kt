@@ -107,7 +107,10 @@ fun HomeScreen(
             }
             composable(Screen.Collectors.route) { CollectorList() }
             composable(Screen.ArtistDetail.route) { ArtistDetail() }
-            composable(Screen.AlbumDetail.route, arguments = listOf(navArgument("albumId") { type = NavType.StringType })) { backStackentry ->
+            composable(
+                Screen.AlbumDetail.route,
+                arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+            ) { backStackentry ->
                 AlbumDetail(navigateTo = { route: String ->
                     navigateToWithState(
                         route,
@@ -115,13 +118,16 @@ fun HomeScreen(
                     )
                 }, albumId = backStackentry.arguments?.getString("albumId"))
             }
-            composable(Screen.SongList.route) {
+            composable(
+                Screen.SongList.route,
+                arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+            ) { backStackEntry ->
                 SongsList(navigateTo = { route: String ->
                     navigateToWithState(
                         route,
-                        innerNavController
+                        innerNavController,
                     )
-                })
+                }, albumId = backStackEntry.arguments?.getString("albumId"))
             }
         }
     }
