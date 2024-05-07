@@ -46,54 +46,60 @@ fun SongsList(
     }
     Box(
         modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        LazyColumn(
-            Modifier
-                .padding(
-                    top = UiPadding.medium,
-                    start = UiPadding.large,
-                    end = UiPadding.large,
-                )
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            items(state.songs) { song ->
-                Box(
-                    Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                        .padding(bottom = UiPadding.large)
-                        .background(
-                            color = Color("#F5F8FA".toColorInt()),
-                        )
-                ) {
-                    Column(
-                        Modifier.padding(
-                            start = UiPadding.large,
-                            top = UiPadding.medium,
-                        )
+        if (state.songs.isEmpty()) {
+            Text(text = "CANCIONES NO DISPONIBLES EN EL MOMENTO", style = Typography.titleMedium)
+        } else {
+            LazyColumn(
+                Modifier
+                    .padding(
+                        top = UiPadding.medium,
+                        start = UiPadding.large,
+                        end = UiPadding.large,
+                    )
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                items(state.songs) { song ->
+                    Box(
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                            .padding(bottom = UiPadding.large)
+                            .background(
+                                color = Color("#F5F8FA".toColorInt()),
+                            )
                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(bottom = UiPadding.medium)
+                        Column(
+                            Modifier.padding(
+                                start = UiPadding.large,
+                                top = UiPadding.medium,
+                            )
                         ) {
-                            Column {
-                                Text(
-                                    text = song.name, style = Typography.titleMedium,
-                                )
-                                Text(
-                                    text = song.duration,
-                                    maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis,
-                                    style = Typography.bodySmall,
-                                )
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(bottom = UiPadding.medium)
+                            ) {
+                                Column {
+                                    Text(
+                                        text = song.name, style = Typography.titleMedium,
+                                    )
+                                    Text(
+                                        text = song.duration,
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis,
+                                        style = Typography.bodySmall,
+                                    )
+                                }
                             }
                         }
                     }
-                }
 
+                }
             }
         }
+
     }
 }
