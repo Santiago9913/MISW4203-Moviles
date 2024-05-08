@@ -5,4 +5,5 @@
     <string name="album_not_available">ALBUM NO DISPONIBLE EN ESTE MOMENTO</string>
     <string name="collectors_not_available">COLECCIONISTAS NO DISPONIBLES EN ESTE MOMENTO</string>
     <string name="album_fecha_lanzamiento_label">Fecha de lanzamiento</string>
+    <string name="songs_not_available">CANCIONES NO DISPONIBLES EN EL MOMENTO</string>
 </resources>

@@ -21,12 +21,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.ui.theme.background
 import com.grupo3.vinilos.utils.Screen
 
 @Composable
@@ -49,7 +52,10 @@ fun SongsList(
         contentAlignment = Alignment.Center
     ) {
         if (state.songs.isEmpty()) {
-            Text(text = "CANCIONES NO DISPONIBLES EN EL MOMENTO", style = Typography.titleMedium)
+            Text(
+                text = stringResource(id = R.string.songs_not_available),
+                style = Typography.titleMedium
+            )
         } else {
             LazyColumn(
                 Modifier
@@ -68,7 +74,7 @@ fun SongsList(
                             .fillMaxWidth()
                             .padding(bottom = UiPadding.large)
                             .background(
-                                color = Color("#F5F8FA".toColorInt()),
+                                color = Color(background),
                             )
                     ) {
                         Column(
