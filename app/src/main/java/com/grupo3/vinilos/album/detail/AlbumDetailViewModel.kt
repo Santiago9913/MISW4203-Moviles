@@ -16,7 +16,7 @@ class AlbumDetailViewModel : ViewModel() {
     private val _state = MutableStateFlow(AlbumDetailState())
     val state: StateFlow<AlbumDetailState> = _state.asStateFlow()
 
-    fun getAlbumDetail(albumId: Int){
+    fun getAlbumDetail(albumId: Int) {
         viewModelScope.launch {
             val album = repository.getAlbumsById(albumId)
             _state.update { currentState ->
@@ -27,9 +27,17 @@ class AlbumDetailViewModel : ViewModel() {
         }
     }
 
-    fun getSongs() {
+    fun getSongs(albumId: Int) {
         viewModelScope.launch {
-            val songs = repository.getSongs(state.value?.albumId)
+            if (albumId != null) {
+                val songs = repository.getSongs(albumId)
+                _state.update { currentState ->
+                    currentState.copy(
+                        songs = songs,
+                    )
+                }
+            }
+
         }
     }
 }

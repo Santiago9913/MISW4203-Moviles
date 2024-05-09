@@ -45,10 +45,7 @@ import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
-import com.grupo3.vinilos.utils.navigateToWithState
 import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,17 +70,17 @@ fun AlbumDetail(
         }
     }
 
-    if (state.album == null){
-        Box(modifier = Modifier.fillMaxSize(),
+    if (state.album == null) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
-            ) {
+        ) {
             Text(
                 text = stringResource(id = R.string.album_not_available),
                 style = Typography.titleMedium
             )
         }
-    }
-    else {
+    } else {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
@@ -110,7 +107,8 @@ fun AlbumDetail(
                             .padding(
                                 top = UiPadding.medium,
                                 bottom = UiPadding.medium,
-                            ).testTag("albumImage_" + state.album!!.cover),
+                            )
+                            .testTag("albumImage_" + state.album!!.cover),
                         contentDescription = stringResource(id = R.string.albums_not_available)
                     )
                 }
@@ -139,7 +137,11 @@ fun AlbumDetail(
                         ),
                 ) {
                     Text(
-                        "${stringResource(id = R.string.album_fecha_lanzamiento_label)}: ${parseDateToDDMMYYYY(state.album!!.releaseDate)}",
+                        "${stringResource(id = R.string.album_fecha_lanzamiento_label)}: ${
+                            parseDateToDDMMYYYY(
+                                state.album!!.releaseDate
+                            )
+                        }",
                         style = MaterialTheme.typography.bodyLarge,
                         maxLines = 2
                     )
@@ -211,7 +213,9 @@ fun AlbumDetail(
                             .fillMaxWidth()
                             .height(48.dp),
                         onClick = {
-
+                            val id = albumId ?: "0"
+                            val route = Screen.SongList.route.replace("{albumId}", id)
+                            navigateTo(route)
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Accent,
