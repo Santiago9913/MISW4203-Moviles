@@ -9,5 +9,7 @@ data class ArtistDto(
     val name: String,
     val image: String,
     val description: String,
+    val creationDate: Date?,
+    val birthDate: Date?,
 )
 
