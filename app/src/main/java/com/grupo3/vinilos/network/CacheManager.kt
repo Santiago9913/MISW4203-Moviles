@@ -5,7 +5,7 @@ import com.grupo3.vinilos.album.dto.SongDto
 object CacheManager {
 
     private var instance: CacheManager? = null
-    private var songs: HashMap<Int, List<SongDto>> = hashMapOf()
+    private val songsCache = mutableMapOf<Int, Pair<Boolean, List<SongDto>>>()
 
     @Synchronized
     fun getInstance(): CacheManager {
@@ -14,13 +14,13 @@ object CacheManager {
         }
     }
 
-    fun addSongs(albumId: Int, song: List<SongDto>) {
-        if (!songs.containsKey(albumId)) {
-            songs[albumId] = song
+    fun addSongs(albumId: Int, songs: List<SongDto>) {
+        if (!songsCache.containsKey(albumId)) {
+            songsCache[albumId] = Pair(true, songs)
         }
     }
 
-    fun getSongs(albumId: Int): List<SongDto> {
-        return songs[albumId] ?: listOf()
+    fun getSongs(albumId: Int): Pair<Boolean, List<SongDto>> {
+        return songsCache[albumId] ?: Pair(false, emptyList())
     }
 }
