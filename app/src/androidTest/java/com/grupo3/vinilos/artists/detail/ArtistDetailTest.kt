@@ -25,12 +25,12 @@ class ArtistDetailTest {
 
     @get:Rule
     var rule = createComposeRule()
-    lateinit var navController: TestNavHostController;
-    lateinit var visitanteRoleName: String;
-    lateinit var artistsNavBar: String;
-    lateinit var artist: ArtistDto;
-    lateinit var fecha: String;
-    lateinit var artistImageTag: String;
+    lateinit var navController: TestNavHostController
+    lateinit var visitanteRoleName: String
+    lateinit var artistsNavBar: String
+    lateinit var artist: ArtistDto
+    lateinit var fecha: String
+    lateinit var artistImageTag: String
 
     @Before
     fun setupAppHost() {

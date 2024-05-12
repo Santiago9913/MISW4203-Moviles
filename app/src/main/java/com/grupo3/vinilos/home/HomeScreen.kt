@@ -51,8 +51,8 @@ fun HomeScreen(
             NavigationBar(
                 containerColor = Primary.copy(alpha = 0.3f)
             ) {
-                val navBackStackEntry by innerNavController.currentBackStackEntryAsState();
-                val currentDestination = navBackStackEntry?.destination;
+                val navBackStackEntry by innerNavController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination
 
                 items.forEach { screen ->
                     NavigationBarItem(

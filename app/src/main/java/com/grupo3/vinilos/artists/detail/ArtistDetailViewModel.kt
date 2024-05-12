@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ArtistDetailViewModel : ViewModel() {
-    private val repository = ArtistsRepository();
-    private val _state = MutableStateFlow(ArtistDetailState());
+    private val repository = ArtistsRepository()
+    private val _state = MutableStateFlow(ArtistDetailState())
     val state: StateFlow<ArtistDetailState> = _state.asStateFlow()
     fun getArtist(id: Int) {
         viewModelScope.launch {

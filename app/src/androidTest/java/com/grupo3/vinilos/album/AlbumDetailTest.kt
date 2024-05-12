@@ -6,11 +6,10 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.ComposeNavigator
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-
 import androidx.navigation.testing.TestNavHostController
 import com.grupo3.vinilos.LogInScreen
 import com.grupo3.vinilos.album.dto.AlbumDto
@@ -19,18 +18,17 @@ import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
 import java.util.Date
 
 class AlbumDetailTest {
 
     @get:Rule
     var rule = createComposeRule()
-    lateinit var navController: TestNavHostController;
-    lateinit var visitanteRoleName:String;
-    lateinit var album:AlbumDto;
-    lateinit var fechaDeLanzamiento: String;
-    lateinit var albumCoverTag:String;
+    lateinit var navController: TestNavHostController
+    lateinit var visitanteRoleName:String
+    lateinit var album:AlbumDto
+    lateinit var fechaDeLanzamiento: String
+    lateinit var albumCoverTag:String
 
     @Before
     fun setupAppHost(){

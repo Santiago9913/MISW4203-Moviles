@@ -12,16 +12,16 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ArtistsViewModel : ViewModel() {
-    private val repository = ArtistsRepository();
+    private val repository = ArtistsRepository()
 
-    private val _state = MutableStateFlow(ArtistsListState());
+    private val _state = MutableStateFlow(ArtistsListState())
     val state: StateFlow<ArtistsListState> = _state.asStateFlow()
 
     fun getArtists() {
         viewModelScope.launch {
             try {
-                val bands = repository.getBands();
-                val musicians = repository.getMusicians();
+                val bands = repository.getBands()
+                val musicians = repository.getMusicians()
                 var artists = bands + musicians
                 artists = artists.sortedBy { it.name }
                 _state.update { currentState ->
