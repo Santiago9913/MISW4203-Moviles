@@ -51,7 +51,7 @@ fun ArtistList(
         }
     }
     LaunchedEffect(Unit) {
-        viewModel.getArtists();
+        viewModel.getArtists()
     }
 
     Box(

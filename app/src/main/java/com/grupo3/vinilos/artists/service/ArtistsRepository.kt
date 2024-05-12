@@ -7,20 +7,18 @@ class ArtistsRepository {
     private val artistsService = RetroFitInstance.artistsService
 
     suspend fun getBands(): List<ArtistDto> {
-        val data = artistsService.getBands();
-        return data;
+        return artistsService.getBands()
     }
 
     suspend fun getMusicians(): List<ArtistDto> {
-        val data = artistsService.getMusicians();
-        return data;
+        return artistsService.getMusicians()
     }
 
     suspend fun getMusician(id: Int): ArtistDto {
-        return artistsService.getMusicianById(id);
+        return artistsService.getMusicianById(id)
     }
 
     suspend fun getBand(id: Int): ArtistDto {
-        return artistsService.getBandById(id);
+        return artistsService.getBandById(id)
     }
 }

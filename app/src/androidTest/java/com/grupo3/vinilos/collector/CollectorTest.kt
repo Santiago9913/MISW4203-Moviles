@@ -19,7 +19,7 @@ import org.junit.Test
 class CollectorTest {
     @get:Rule
     var rule = createComposeRule()
-    lateinit var navController: TestNavHostController;
+    lateinit var navController: TestNavHostController
 
     @Before
     fun setupAppHost(){

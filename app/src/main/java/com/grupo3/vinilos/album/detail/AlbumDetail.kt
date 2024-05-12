@@ -1,7 +1,6 @@
 package com.grupo3.vinilos.album.detail
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
@@ -31,23 +29,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.SemanticsPropertyKey
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.grupo3.vinilos.R
-import com.grupo3.vinilos.artists.list.ArtistsViewModel
 import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumDetail(
     viewModel: AlbumDetailViewModel = viewModel(),
@@ -66,7 +59,7 @@ fun AlbumDetail(
     LaunchedEffect(Unit) {
         if (albumId != null) {
             println("Album id: ${albumId}")
-            viewModel.getAlbumDetail(albumId.toInt());
+            viewModel.getAlbumDetail(albumId.toInt())
         }
     }
 

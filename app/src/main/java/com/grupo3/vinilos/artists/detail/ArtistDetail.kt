@@ -51,7 +51,7 @@ fun ArtistDetail(
             }
         }
         LaunchedEffect(Unit) {
-            viewModel.getArtist(artistId.toInt());
+            viewModel.getArtist(artistId.toInt())
         }
 
         Box(modifier = Modifier.fillMaxSize()) {

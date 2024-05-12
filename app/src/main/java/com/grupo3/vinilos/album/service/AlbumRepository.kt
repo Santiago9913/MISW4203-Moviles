@@ -10,8 +10,7 @@ class AlbumRepository {
     private val albumsService = RetroFitInstance.albumsService
 
     suspend fun getAlbums(): List<AlbumDto> {
-        val data = albumsService.getAlbums()
-        return data
+        return albumsService.getAlbums()
     }
 
     suspend fun getAlbumsById(albumId: Int): AlbumDto {

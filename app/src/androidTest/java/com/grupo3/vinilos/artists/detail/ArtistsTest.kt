@@ -1,16 +1,14 @@
 package com.grupo3.vinilos.artists.detail
 
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.ComposeNavigator
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-
 import androidx.navigation.testing.TestNavHostController
 import com.grupo3.vinilos.LogInScreen
 import com.grupo3.vinilos.home.HomeScreen
@@ -22,7 +20,7 @@ class ArtistsTest {
 
     @get:Rule
     var rule = createComposeRule()
-    lateinit var navController: TestNavHostController;
+    lateinit var navController: TestNavHostController
 
     @Before
     fun setupAppHost(){
