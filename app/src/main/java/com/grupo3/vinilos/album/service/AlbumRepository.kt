@@ -10,25 +10,24 @@ class AlbumRepository {
     private val albumsService = RetroFitInstance.albumsService
 
     suspend fun getAlbums(): List<AlbumDto> {
-        val data = albumsService.getAlbums();
-        return data;
+        val data = albumsService.getAlbums()
+        return data
     }
 
     suspend fun getAlbumsById(albumId: Int): AlbumDto {
-        return albumsService.getAlbumById(albumId);
+        return albumsService.getAlbumById(albumId)
     }
 
     suspend fun getSongs(albumId: Int): List<SongDto> {
-        var potentialSongs = CacheManager.getInstance(application.applicationContext).getSongs(albumId)
-        if(potentialSongs.isEmpty()){
+        val potentialSongs = CacheManager.getInstance().getSongs(albumId)
+        return if(potentialSongs.isEmpty()){
             Log.d("Cache decision", "get from network")
-            var songs = albumsService.getSongs(albumId)
-            CacheManager.getInstance(application.applicationContext).addSongs(albumId, songs)
-            return songs
-        }
-        else{
+            val songs = albumsService.getSongs(albumId)
+            CacheManager.getInstance().addSongs(albumId, songs)
+            songs
+        } else{
             Log.d("Cache decision", "return ${potentialSongs.size} elements from cache")
-            return potentialSongs
+            potentialSongs
         }
     }
 }
