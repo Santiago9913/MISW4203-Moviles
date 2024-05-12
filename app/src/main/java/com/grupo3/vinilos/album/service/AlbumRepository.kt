@@ -19,14 +19,14 @@ class AlbumRepository {
 
     suspend fun getSongs(albumId: Int): List<SongDto> {
         val potentialSongs = CacheManager.getInstance().getSongs(albumId)
-        return if(potentialSongs.isEmpty()){
-            Log.d("Cache decision", "get from network")
+        return if(!potentialSongs.first){
+            Log.d("Cache decision", "albumId: ${albumId} - getting songs from network")
             val songs = albumsService.getSongs(albumId)
             CacheManager.getInstance().addSongs(albumId, songs)
             songs
         } else{
-            Log.d("Cache decision", "return ${potentialSongs.size} elements from cache")
-            potentialSongs
+            Log.d("Cache decision", "albumId: ${albumId} - return ${potentialSongs.second.size} elements from cache")
+            potentialSongs.second
         }
     }
 }
