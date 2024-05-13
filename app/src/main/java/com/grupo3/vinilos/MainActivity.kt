@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.grupo3.vinilos.home.HomeScreen
 import com.grupo3.vinilos.ui.theme.VinilosTheme
 import com.grupo3.vinilos.home.HomeScreen
+import com.grupo3.vinilos.home.HomeScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
