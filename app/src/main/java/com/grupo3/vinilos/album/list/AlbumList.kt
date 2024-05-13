@@ -28,6 +28,9 @@ import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
 @Composable
 fun AlbumList(
@@ -46,7 +49,9 @@ fun AlbumList(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getAlbums()
+        withContext(Dispatchers.IO) {
+            viewModel.getAlbums()
+        }
     }
 
     Box(

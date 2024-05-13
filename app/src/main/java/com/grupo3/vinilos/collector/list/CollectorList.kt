@@ -24,6 +24,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -39,7 +41,9 @@ fun CollectorList(viewModel: CollectorsViewModel = viewModel()) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getCollectors()
+        withContext(Dispatchers.IO) {
+            viewModel.getCollectors()
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

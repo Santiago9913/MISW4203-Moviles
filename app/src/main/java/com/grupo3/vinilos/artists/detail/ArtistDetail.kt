@@ -33,6 +33,8 @@ import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -51,7 +53,9 @@ fun ArtistDetail(
             }
         }
         LaunchedEffect(Unit) {
-            viewModel.getArtist(artistId.toInt())
+            withContext(Dispatchers.IO) {
+                viewModel.getArtist(artistId.toInt())
+            }
         }
 
         Box(modifier = Modifier.fillMaxSize()) {
