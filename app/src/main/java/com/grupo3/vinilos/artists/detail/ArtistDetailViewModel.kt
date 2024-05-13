@@ -15,29 +15,27 @@ class ArtistDetailViewModel : ViewModel() {
     private val repository = ArtistsRepository()
     private val _state = MutableStateFlow(ArtistDetailState())
     val state: StateFlow<ArtistDetailState> = _state.asStateFlow()
-    fun getArtist(id: Int) {
-        viewModelScope.launch {
+    suspend fun getArtist(id: Int) {
+        try {
+            val artist = repository.getMusician(id)
+            _state.update { currentState ->
+                currentState.copy(
+                    artist = artist,
+                )
+            }
+        } catch (e: Exception) {
             try {
-                val artist = repository.getMusician(id)
+                val artist = repository.getBand(id)
                 _state.update { currentState ->
                     currentState.copy(
                         artist = artist,
                     )
                 }
             } catch (e: Exception) {
-                try {
-                    val artist = repository.getBand(id)
-                    _state.update { currentState ->
-                        currentState.copy(
-                            artist = artist,
-                        )
-                    }
-                } catch (e: Exception) {
-                    _state.update { currentState ->
-                        currentState.copy(
-                            errorMessage = ERROR_MESSAGE
-                        )
-                    }
+                _state.update { currentState ->
+                    currentState.copy(
+                        errorMessage = ERROR_MESSAGE
+                    )
                 }
             }
         }

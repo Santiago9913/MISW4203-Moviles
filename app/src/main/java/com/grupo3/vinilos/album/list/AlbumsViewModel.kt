@@ -17,24 +17,23 @@ class AlbumsViewModel : ViewModel() {
     private val _state = MutableStateFlow(AlbumsListState())
     val state: StateFlow<AlbumsListState> = _state.asStateFlow()
 
-    fun getAlbums() {
-        viewModelScope.launch {
-            try {
-                val albums = repository.getAlbums()
+    suspend fun getAlbums() {
+        try {
+            val albums = repository.getAlbums()
 
-                _state.update { currentState ->
-                    currentState.copy(
-                        albums = albums,
-                        errorMessage = null
-                    )
-                }
-            } catch (e: Exception) {
-                _state.update { currentState ->
-                    currentState.copy(
-                        errorMessage = ERROR_MESSAGE
-                    )
-                }
+            _state.update { currentState ->
+                currentState.copy(
+                    albums = albums,
+                    errorMessage = null
+                )
+            }
+        } catch (e: Exception) {
+            _state.update { currentState ->
+                currentState.copy(
+                    errorMessage = ERROR_MESSAGE
+                )
             }
         }
+
     }
 }

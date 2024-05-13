@@ -10,29 +10,27 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class CollectorsViewModel: ViewModel() {
+class CollectorsViewModel : ViewModel() {
     private val repository = CollectorRepository()
 
     private val _state = MutableStateFlow(CollectorsListState())
     val state: StateFlow<CollectorsListState> = _state.asStateFlow()
 
-    fun getCollectors() {
-        viewModelScope.launch {
-            try {
-                val collectors = repository.getCollectors()
+    suspend fun getCollectors() {
+        try {
+            val collectors = repository.getCollectors()
 
-                _state.update {
-                    currentState -> currentState.copy(
-                        collectors = collectors,
-                        errorMessage = null
-                    )
-                }
-            } catch (e: Exception) {
-                _state.update {
-                    currentState -> currentState.copy(
-                        errorMessage = ERROR_MESSAGE
-                    )
-                }
+            _state.update { currentState ->
+                currentState.copy(
+                    collectors = collectors,
+                    errorMessage = null
+                )
+            }
+        } catch (e: Exception) {
+            _state.update { currentState ->
+                currentState.copy(
+                    errorMessage = ERROR_MESSAGE
+                )
             }
         }
     }

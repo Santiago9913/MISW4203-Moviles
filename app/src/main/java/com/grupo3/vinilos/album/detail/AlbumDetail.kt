@@ -40,6 +40,8 @@ import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun AlbumDetail(
@@ -58,8 +60,9 @@ fun AlbumDetail(
 
     LaunchedEffect(Unit) {
         if (albumId != null) {
-            println("Album id: ${albumId}")
-            viewModel.getAlbumDetail(albumId.toInt())
+            withContext(Dispatchers.IO) {
+                viewModel.getAlbumDetail(albumId.toInt())
+            }
         }
     }
 
