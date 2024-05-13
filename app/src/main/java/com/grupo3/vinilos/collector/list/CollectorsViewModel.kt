@@ -1,29 +1,28 @@
-package com.grupo3.vinilos.album.list
+package com.grupo3.vinilos.collector.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grupo3.vinilos.album.service.AlbumRepository
+import com.grupo3.vinilos.collector.service.CollectorRepository
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
-class AlbumsViewModel : ViewModel() {
-    private val repository = AlbumRepository()
+class CollectorsViewModel : ViewModel() {
+    private val repository = CollectorRepository()
 
-    private val _state = MutableStateFlow(AlbumsListState())
-    val state: StateFlow<AlbumsListState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(CollectorsListState())
+    val state: StateFlow<CollectorsListState> = _state.asStateFlow()
 
-    suspend fun getAlbums() {
+    suspend fun getCollectors() {
         try {
-            val albums = repository.getAlbums()
+            val collectors = repository.getCollectors()
 
             _state.update { currentState ->
                 currentState.copy(
-                    albums = albums,
+                    collectors = collectors,
                     errorMessage = null
                 )
             }
@@ -34,6 +33,5 @@ class AlbumsViewModel : ViewModel() {
                 )
             }
         }
-
     }
 }

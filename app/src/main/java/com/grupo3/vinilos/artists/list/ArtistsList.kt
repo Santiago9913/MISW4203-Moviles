@@ -34,6 +34,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -51,7 +53,9 @@ fun ArtistList(
         }
     }
     LaunchedEffect(Unit) {
-        viewModel.getArtists();
+        withContext(Dispatchers.IO) {
+            viewModel.getArtists()
+        }
     }
 
     Box(

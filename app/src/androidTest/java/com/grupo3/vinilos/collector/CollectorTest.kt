@@ -1,4 +1,4 @@
-package com.grupo3.vinilos.artists.detail
+package com.grupo3.vinilos.collector
 
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -16,8 +16,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ArtistsTest {
-
+class CollectorTest {
     @get:Rule
     var rule = createComposeRule()
     lateinit var navController: TestNavHostController
@@ -41,12 +40,20 @@ class ArtistsTest {
     }
 
     @Test
-    fun asVisitante_showListOfArtists(){
-        val artistName ="Queen"
+    fun asVisitante_showListOfCollectors(){
+        val collectorTitle ="Buscando América"
         rule.onNodeWithText("Visitante").assertExists().performClick()
-        rule.onNodeWithText("Artistas").assertExists().performClick()
         rule.waitUntil(4000L) {
-            rule.onAllNodesWithText(artistName).fetchSemanticsNodes().size == 1
+            rule.onAllNodesWithText(collectorTitle).fetchSemanticsNodes().size == 1
+        }
+    }
+
+    @Test
+    fun asColeccionista_showListOfCollectors(){
+        val collectorTitle ="Buscando América"
+        rule.onNodeWithText("Coleccionista").assertExists().performClick()
+        rule.waitUntil(4000L) {
+            rule.onAllNodesWithText(collectorTitle).fetchSemanticsNodes().size == 1
         }
     }
 }

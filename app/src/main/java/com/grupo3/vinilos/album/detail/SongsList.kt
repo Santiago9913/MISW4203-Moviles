@@ -1,7 +1,6 @@
-package com.grupo3.vinilos.album.list
+package com.grupo3.vinilos.album.detail
 
-import android.widget.Toast
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,48 +18,42 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.ui.platform.LocalContext
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
-import com.grupo3.vinilos.utils.Screen
+import com.grupo3.vinilos.ui.theme.background
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 @Composable
-fun AlbumList(
-    viewModel: AlbumsViewModel = viewModel(),
-    navigateTo: (String) -> Unit
+fun SongsList(
+    navigateTo: (String) -> Unit,
+    viewModel: AlbumDetailViewModel = viewModel(),
+    albumId: String?
 ) {
-    val context = LocalContext.current
+
 
     val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(state.errorMessage) {
-        state.errorMessage?.let {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-
-        }
-    }
-
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            viewModel.getAlbums()
+        if (albumId != null) {
+            withContext(Dispatchers.IO) {
+                viewModel.getSongs(albumId.toInt())
+            }
         }
     }
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        if (state.albums.isEmpty()) {
+        if (state.songs.isEmpty()) {
             Text(
-                text = stringResource(id = R.string.albums_not_available),
+                text = stringResource(id = R.string.songs_not_available),
                 style = Typography.titleMedium
             )
         } else {
@@ -74,20 +67,22 @@ fun AlbumList(
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
-                items(state.albums) { album ->
+                items(state.songs) { song ->
                     Box(
                         Modifier
                             .fillMaxHeight()
                             .fillMaxWidth()
-                            .clickable {
-                                var route = StringBuilder()
-                                    .append(Screen.AlbumDetail.route)
-                                    .toString()
-                                    .replace("{albumId}", album.id.toString())
-                                navigateTo(route)
-                            }
+                            .padding(bottom = UiPadding.large)
+                            .background(
+                                color = Color(background),
+                            )
                     ) {
-                        Column {
+                        Column(
+                            Modifier.padding(
+                                start = UiPadding.large,
+                                top = UiPadding.medium,
+                            )
+                        ) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -95,10 +90,10 @@ fun AlbumList(
                             ) {
                                 Column {
                                     Text(
-                                        text = album.name, style = Typography.titleMedium,
+                                        text = song.name, style = Typography.titleMedium,
                                     )
                                     Text(
-                                        text = album.description,
+                                        text = song.duration,
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,
                                         style = Typography.bodySmall,
@@ -107,8 +102,10 @@ fun AlbumList(
                             }
                         }
                     }
+
                 }
             }
         }
+
     }
 }
