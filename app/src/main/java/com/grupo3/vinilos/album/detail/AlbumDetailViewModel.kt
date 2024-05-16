@@ -2,6 +2,7 @@ package com.grupo3.vinilos.album.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.service.AlbumRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,5 +35,16 @@ class AlbumDetailViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun addSong(albumId: Int, song: SongCreateDto) {
+        viewModelScope.launch() {
+            val newSong = repository.addSong(albumId, song)
+            _state.update { currentState ->
+                currentState.copy(
+                    songs = currentState.songs + newSong,
+                )
+            }
+        }
     }
 }

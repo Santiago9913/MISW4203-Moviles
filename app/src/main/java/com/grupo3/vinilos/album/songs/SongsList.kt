@@ -1,4 +1,4 @@
-package com.grupo3.vinilos.album.detail
+package com.grupo3.vinilos.album.songs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,14 +21,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.R
+import com.grupo3.vinilos.album.detail.AlbumDetailViewModel
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.ui.theme.background
+import com.grupo3.vinilos.utils.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -105,6 +110,19 @@ fun SongsList(
 
                 }
             }
+        }
+
+        FloatingActionButton(
+            onClick = {
+                val id = albumId ?: "0"
+                val route = Screen.AddSong.route.replace("{albumId}", id)
+                navigateTo(route)
+            },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            Icon(painter = painterResource(id = R.drawable.add), contentDescription = "Add Song")
         }
 
     }
