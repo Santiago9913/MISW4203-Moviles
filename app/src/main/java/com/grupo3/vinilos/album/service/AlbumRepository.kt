@@ -2,6 +2,7 @@ package com.grupo3.vinilos.album.service
 
 import android.util.Log
 import com.grupo3.vinilos.album.dto.AlbumDto
+import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.dto.SongDto
 import com.grupo3.vinilos.network.CacheManager
 import com.grupo3.vinilos.network.RetroFitInstance
@@ -31,5 +32,9 @@ class AlbumRepository {
             )
             potentialSongs.second
         }
+    }
+
+    suspend fun addSong(albumId: Int, song: SongCreateDto): SongDto {
+        return albumsService.addSong(albumId, song)
     }
 }
