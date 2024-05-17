@@ -35,6 +35,8 @@ class AlbumRepository {
     }
 
     suspend fun addSong(albumId: Int, song: SongCreateDto): SongDto {
-        return albumsService.addSong(albumId, song)
+        val newSong = albumsService.addSong(albumId, song)
+        CacheManager.getInstance().addSong(albumId, newSong)
+        return newSong
     }
 }

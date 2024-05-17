@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -44,6 +45,13 @@ fun SongsList(
 
 
     val state by viewModel.state.collectAsState()
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(state.songs.size) {
+        if (state.songs.isNotEmpty()) {
+            listState.animateScrollToItem(state.songs.size - 1)
+        }
+    }
 
     LaunchedEffect(Unit) {
         if (albumId != null) {
@@ -52,6 +60,8 @@ fun SongsList(
             }
         }
     }
+
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -70,7 +80,8 @@ fun SongsList(
                         end = UiPadding.large,
                     )
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                state = listState
             ) {
                 items(state.songs) { song ->
                     Box(
