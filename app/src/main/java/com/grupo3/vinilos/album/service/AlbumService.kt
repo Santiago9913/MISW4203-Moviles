@@ -22,5 +22,5 @@ interface AlbumService {
     suspend fun addSong(@Path("albumId") albumId: Int, @Body song: SongCreateDto): SongDto
 
     @POST("albums")
-    suspend fun createAlbum(album: AlbumDto): AlbumDto
+    suspend fun createAlbum(@Body album: AlbumDto): AlbumDto
 }
