@@ -31,4 +31,5 @@ object RetroFitInstance {
     val collectorService: CollectorService by lazy {
         retrofit.create(CollectorService::class.java)
     }
+
 }
