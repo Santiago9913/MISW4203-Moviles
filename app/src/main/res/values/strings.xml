@@ -9,4 +9,10 @@
     <string name="artist_fecha_nacimiento_label">Fecha de nacimiento</string>
     <string name="artist_fecha_creacion_label">Fecha de creacion</string>
     <string name="songs_not_available">CANCIONES NO DISPONIBLES EN EL MOMENTO</string>
+    <!-- songs -->
+    <string name="add_song_button">Añadir canción</string>
+    <string name="song_successfully_added_label">Canción agregada satisfactoriamente</string>
+    <string name="input_song_name_label">Nombre</string>
+    <string name="input_song_duration_label">Duración</string>
+    <string name="save_song_button">Asociar canción</string>
 </resources>

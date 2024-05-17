@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.service.AlbumRepository
+import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,24 +27,31 @@ class AlbumDetailViewModel : ViewModel() {
     }
 
     suspend fun getSongs(albumId: Int) {
-        if (albumId != null) {
-            val songs = repository.getSongs(albumId)
-            _state.update { currentState ->
-                currentState.copy(
-                    songs = songs,
-                )
-            }
+        val songs = repository.getSongs(albumId)
+        _state.update { currentState ->
+            currentState.copy(
+                songs = songs,
+            )
         }
 
     }
 
     fun addSong(albumId: Int, song: SongCreateDto) {
         viewModelScope.launch() {
-            val newSong = repository.addSong(albumId, song)
-            _state.update { currentState ->
-                currentState.copy(
-                    songs = currentState.songs + newSong,
-                )
+            try {
+                val newSong = repository.addSong(albumId, song)
+                _state.update { currentState ->
+                    currentState.copy(
+                        songs = currentState.songs + newSong,
+                        errorMessage = null
+                    )
+                }
+            } catch (e: Exception) {
+                _state.update { currentState ->
+                    currentState.copy(
+                        errorMessage = ERROR_MESSAGE
+                    )
+                }
             }
         }
     }

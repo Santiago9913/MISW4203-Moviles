@@ -1,5 +1,6 @@
 package com.grupo3.vinilos.album.songs
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,7 +33,9 @@ import com.grupo3.vinilos.album.detail.AlbumDetailViewModel
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.ui.theme.background
+import com.grupo3.vinilos.utils.ES_VISITANTE
 import com.grupo3.vinilos.utils.Screen
+import com.grupo3.vinilos.utils.USER_PREFS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -43,15 +46,13 @@ fun SongsList(
     albumId: String?
 ) {
 
+    // Read the value from SharedPreferences
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
+    val showButton = sharedPreferences.getBoolean(ES_VISITANTE, true)
+
 
     val state by viewModel.state.collectAsState()
-    val listState = rememberLazyListState()
-
-    LaunchedEffect(state.songs.size) {
-        if (state.songs.isNotEmpty()) {
-            listState.animateScrollToItem(state.songs.size - 1)
-        }
-    }
 
     LaunchedEffect(Unit) {
         if (albumId != null) {
@@ -80,8 +81,7 @@ fun SongsList(
                         end = UiPadding.large,
                     )
                     .fillMaxWidth()
-                    .fillMaxHeight(),
-                state = listState
+                    .fillMaxHeight()
             ) {
                 items(state.songs) { song ->
                     Box(
@@ -123,17 +123,22 @@ fun SongsList(
             }
         }
 
-        FloatingActionButton(
-            onClick = {
-                val id = albumId ?: "0"
-                val route = Screen.AddSong.route.replace("{albumId}", id)
-                navigateTo(route)
-            },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(painter = painterResource(id = R.drawable.add), contentDescription = "Add Song")
+        if (!showButton) {
+            FloatingActionButton(
+                onClick = {
+                    val id = albumId ?: "0"
+                    val route = Screen.AddSong.route.replace("{albumId}", id)
+                    navigateTo(route)
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add),
+                    contentDescription = stringResource(id = R.string.add_song_button)
+                )
+            }
         }
 
     }
