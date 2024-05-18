@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -65,19 +66,24 @@ fun AddSong(
             value = songName,
             onValueChange = { songName = it },
             label = { Text(stringResource(id = R.string.input_song_name_label)) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("song_name_input")
         )
         OutlinedTextField(
             value = songDuration,
             onValueChange = { songDuration = it },
             label = { Text(stringResource(id = R.string.input_song_duration_label)) },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("song_duration_input"),
             placeholder = { Text(text = "MM:SS") }
         )
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp),
+                .height(48.dp)
+                .testTag("save_song_button"),
             onClick = {
                 if (songName.isBlank() || songDuration.isBlank()) {
                     Toast.makeText(context, R.string.song_name_duration_error, Toast.LENGTH_SHORT)
