@@ -1,7 +1,9 @@
 package com.grupo3.vinilos.album.songs
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,14 +29,13 @@ import com.grupo3.vinilos.album.detail.AlbumDetailViewModel
 import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.utils.FORMAT_DURATION
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.isValidSongDuration
 
 @Composable
 fun AddSong(
-    navigateTo: (String) -> Unit,
-    viewModel: AlbumDetailViewModel = viewModel(),
-    albumId: String?
+    navigateTo: (String) -> Unit, viewModel: AlbumDetailViewModel = viewModel(), albumId: String?
 ) {
     var songName by remember { mutableStateOf("") }
     var songDuration by remember { mutableStateOf("") }
@@ -56,29 +57,32 @@ fun AddSong(
     }
 
     Column(
-        Modifier.padding(
-            start = UiPadding.large,
-            top = UiPadding.medium,
-            end = UiPadding.large
-        )
+        Modifier
+            .padding(
+                start = UiPadding.large,
+                top = UiPadding.medium,
+                end = UiPadding.large,
+                bottom = UiPadding.xxLarge
+            )
+            .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween
     ) {
-        OutlinedTextField(
-            value = songName,
-            onValueChange = { songName = it },
-            label = { Text(stringResource(id = R.string.input_song_name_label)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag("song_name_input")
-        )
-        OutlinedTextField(
-            value = songDuration,
-            onValueChange = { songDuration = it },
-            label = { Text(stringResource(id = R.string.input_song_duration_label)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag("song_duration_input"),
-            placeholder = { Text(text = "MM:SS") }
-        )
+        Column {
+            OutlinedTextField(
+                value = songName,
+                onValueChange = { songName = it },
+                label = { Text(stringResource(id = R.string.input_song_name_label)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("song_name_input")
+            )
+            OutlinedTextField(value = songDuration,
+                onValueChange = { songDuration = it },
+                label = { Text(stringResource(id = R.string.input_song_duration_label)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("song_duration_input"),
+                placeholder = { Text(text = FORMAT_DURATION) })
+        }
         Button(
             modifier = Modifier
                 .fillMaxWidth()
