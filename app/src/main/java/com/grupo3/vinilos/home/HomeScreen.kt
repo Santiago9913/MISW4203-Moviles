@@ -24,8 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.grupo3.vinilos.album.detail.AlbumDetail
-import com.grupo3.vinilos.album.detail.SongsList
+import com.grupo3.vinilos.album.songs.SongsList
 import com.grupo3.vinilos.album.list.AlbumList
+import com.grupo3.vinilos.album.songs.AddSong
 import com.grupo3.vinilos.artists.detail.ArtistDetail
 import com.grupo3.vinilos.artists.list.ArtistList
 import com.grupo3.vinilos.collector.list.CollectorList
@@ -123,6 +124,17 @@ fun HomeScreen(
                 arguments = listOf(navArgument("albumId") { type = NavType.StringType })
             ) { backStackEntry ->
                 SongsList(navigateTo = { route: String ->
+                    navigateToWithState(
+                        route,
+                        innerNavController,
+                    )
+                }, albumId = backStackEntry.arguments?.getString("albumId"))
+            }
+            composable(
+                Screen.AddSong.route,
+                arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                AddSong(navigateTo = { route: String ->
                     navigateToWithState(
                         route,
                         innerNavController,
