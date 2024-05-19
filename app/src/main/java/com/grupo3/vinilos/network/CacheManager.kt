@@ -14,6 +14,12 @@ object CacheManager {
         }
     }
 
+    fun addSong(albumId: Int, song: SongDto) {
+        val songs = getSongs(albumId).second.toMutableList()
+        songs.add(song)
+        songsCache[albumId] = Pair(true, songs)
+    }
+
     fun addSongs(albumId: Int, songs: List<SongDto>) {
         if (!songsCache.containsKey(albumId)) {
             songsCache[albumId] = Pair(true, songs)
