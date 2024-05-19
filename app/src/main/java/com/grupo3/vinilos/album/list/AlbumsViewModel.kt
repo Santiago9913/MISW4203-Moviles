@@ -2,14 +2,14 @@ package com.grupo3.vinilos.album.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grupo3.vinilos.album.dto.AlbumDto
 import com.grupo3.vinilos.album.service.AlbumRepository
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 class AlbumsViewModel : ViewModel() {
     private val repository = AlbumRepository()
@@ -35,5 +35,18 @@ class AlbumsViewModel : ViewModel() {
             }
         }
 
+    }
+
+    suspend fun createAlbum(album: AlbumDto) {
+        try {
+            repository.createAlbum(album = album);
+        } catch (e: Exception) {
+            _state.update { currentState ->
+                currentState.copy(
+                    errorMessage = ERROR_MESSAGE
+                )
+
+            }
+        }
     }
 }
