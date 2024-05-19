@@ -10,4 +10,5 @@ sealed class Screen(val route: String, val label: String, val icon: Int?) {
     data object AlbumDetail : Screen("albums/{albumId}", "AlbumDetalle", null)
     data object SongList : Screen("{albumId}/songs", label = "SongsList", icon = null)
     data object AddSong : Screen("{albumId}/songs/add", label = "AddSong", icon = null)
+    data object AddAlbum : Screen("albums/add", label = "AddAlbum", icon = R.drawable.white_pencil)
 }

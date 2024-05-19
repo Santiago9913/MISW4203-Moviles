@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import com.grupo3.vinilos.album.detail.AlbumDetail
 import com.grupo3.vinilos.album.songs.SongsList
 import com.grupo3.vinilos.album.list.AlbumList
+import com.grupo3.vinilos.album.register.AlbumRegistration
 import com.grupo3.vinilos.album.songs.AddSong
 import com.grupo3.vinilos.artists.detail.ArtistDetail
 import com.grupo3.vinilos.artists.list.ArtistList
@@ -140,6 +141,16 @@ fun HomeScreen(
                         innerNavController,
                     )
                 }, albumId = backStackEntry.arguments?.getString("albumId"))
+            }
+            composable(
+                Screen.AddAlbum.route
+            ) { backStackEntry ->
+                AlbumRegistration(navigateTo = { route: String ->
+                    navigateToWithState(
+                        route,
+                        innerNavController,
+                    )
+                })
             }
         }
     }

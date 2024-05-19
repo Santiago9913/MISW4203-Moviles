@@ -17,4 +17,6 @@
     <string name="save_song_button">Asociar canción</string>
     <string name="song_name_duration_error">El nombre y duración de la canción son requerido</string>
     <string name="song_duration_format_error">El formato de duración debe ser MM:SS</string>
+    <string name="album_fecha_lanzamiento_label_form">Fecha de lanzamiento</string>
+
 </resources>
