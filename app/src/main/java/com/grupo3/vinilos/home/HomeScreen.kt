@@ -24,12 +24,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.grupo3.vinilos.album.detail.AlbumDetail
-import com.grupo3.vinilos.album.songs.SongsList
 import com.grupo3.vinilos.album.list.AlbumList
 import com.grupo3.vinilos.album.register.AlbumRegistration
 import com.grupo3.vinilos.album.songs.AddSong
+import com.grupo3.vinilos.album.songs.SongsList
 import com.grupo3.vinilos.artists.detail.ArtistDetail
 import com.grupo3.vinilos.artists.list.ArtistList
+import com.grupo3.vinilos.collector.detail.CollectorDetail
 import com.grupo3.vinilos.collector.list.CollectorList
 import com.grupo3.vinilos.ui.theme.Primary
 import com.grupo3.vinilos.utils.Screen
@@ -107,8 +108,28 @@ fun HomeScreen(
                     )
                 })
             }
-            composable(Screen.Collectors.route) { CollectorList() }
-            composable(Screen.ArtistDetail.route) { ArtistDetail(artistId = it.arguments?.getString("artistId")) }
+            composable(Screen.Collectors.route) {
+                CollectorList(navigateTo = { route: String ->
+                    navigateToWithState(
+                        route,
+                        innerNavController
+                    )
+                })
+            }
+            composable(Screen.CollectorDetail.route) {
+                CollectorDetail(
+                    collectorId = it.arguments?.getString(
+                        "collectorId"
+                    )
+                )
+            }
+            composable(Screen.ArtistDetail.route) {
+                ArtistDetail(
+                    artistId = it.arguments?.getString(
+                        "artistId"
+                    )
+                )
+            }
             composable(
                 Screen.AlbumDetail.route,
                 arguments = listOf(navArgument("albumId") { type = NavType.StringType })

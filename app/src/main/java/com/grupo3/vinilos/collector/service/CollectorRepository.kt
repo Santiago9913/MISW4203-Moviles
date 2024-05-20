@@ -9,4 +9,8 @@ class CollectorRepository {
     suspend fun getCollectors(): List<CollectorDto> {
         return collectorService.getCollectors()
     }
+
+    suspend fun getCollector(id: Int): CollectorDto {
+        return collectorService.getCollector(id)
+    }
 }
