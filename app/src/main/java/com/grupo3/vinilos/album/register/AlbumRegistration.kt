@@ -10,21 +10,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -66,8 +70,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import com.grupo3.vinilos.album.dto.SongCreateDto
+import com.grupo3.vinilos.shared.DropDownList
+import com.grupo3.vinilos.shared.Option
 import com.grupo3.vinilos.utils.FORMAT_DURATION
 import com.grupo3.vinilos.utils.convertMillisToLocalDateString
+import com.grupo3.vinilos.utils.isValidSongDuration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -83,8 +91,10 @@ fun AlbumRegistration(
 
     var text by remember { mutableStateOf("") }
     var cover by remember { mutableStateOf("") }
+    var genero by remember { mutableStateOf("") }
     var songDuration by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
+    var showGenreDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.errorMessage) {
         state.errorMessage?.let {
@@ -112,7 +122,8 @@ fun AlbumRegistration(
                     modifier = Modifier.fillMaxWidth(),
                     value = text,
                     onValueChange = { text = it },
-                    label = { Text("Nombre") }
+                    label = { Text(stringResource(id = R.string.album_registrar_nombre_album)) },
+                    singleLine = true
                 )
             }
             Row(
@@ -124,7 +135,9 @@ fun AlbumRegistration(
                     modifier = Modifier.fillMaxWidth(),
                     value = cover,
                     onValueChange = { cover = it },
-                    label = { Text("Cover") }
+                    label = { Text(stringResource(id = R.string.album_registrar_cover_album)) },
+                    singleLine = true
+
                 )
             }
 
@@ -135,13 +148,16 @@ fun AlbumRegistration(
             ) {
                 val dateState = rememberDatePickerState()
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth().clickable(onClick = {
-                        showDialog = true
-                    }),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            showDialog = true
+                        }),
+                    singleLine = true,
                     value  = convertMillisToLocalDateString(dateState?.selectedDateMillis),
                     onValueChange = {  },
                     readOnly = false,
-                    label = { Text("Fecha de lanzamiento") },
+                    label = { Text(stringResource(id = R.string.album_registrar_fecha_lanzamiento_album)) },
                     trailingIcon = {
                         IconButton(
                             onClick = {
@@ -183,6 +199,68 @@ fun AlbumRegistration(
                     }
                 }
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                val options = listOf(Option("Rock", "Rock"), Option("Salsa", "Salsa"))
+                DropDownList(
+                    title = stringResource(id = R.string.album_registrar_generos_modal_album),
+                    label = stringResource(id = R.string.album_registrar_genero_album),
+                    placeholder = stringResource(id = R.string.album_registrar_genero_album),
+                    options =  options,
+                    onClick = { option -> genero = option.label }
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                val options = listOf(Option("Emi", "Emi"), Option("Elektra", "Elektra"))
+                DropDownList(
+                    title = stringResource(id = R.string.album_registrar_recordlabel_modal_album),
+                    label = stringResource(id = R.string.album_registrar_recordlabel_album),
+                    placeholder = stringResource(id = R.string.album_registrar_recordlabel_album),
+                    options =  options,
+                    onClick = { option -> genero = option.label }
+                )
+            }
+            Spacer(Modifier.weight(1f).fillMaxHeight())
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+
+
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .testTag("save_song_button"),
+                    onClick = {
+                       /* if (songName.isBlank() || songDuration.isBlank()) {
+                            Toast.makeText(context, R.string.song_name_duration_error, Toast.LENGTH_SHORT)
+                                .show()
+                        } else if (albumId != null && isValidSongDuration(songDuration)) {
+                            viewModel.addSong(albumId.toInt(), SongCreateDto(songName, songDuration))
+                        } else {
+                            Toast.makeText(context, R.string.song_duration_format_error, Toast.LENGTH_SHORT)
+                                .show()
+                        } */
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Accent,
+                    ),
+                ) {
+                    Text(stringResource(id = R.string.album_registrar_album))
+                }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
             }
         }
+
 }
