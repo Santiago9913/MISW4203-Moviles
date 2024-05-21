@@ -54,6 +54,8 @@ import com.grupo3.vinilos.utils.SNACKBAR_ERROR
 import com.grupo3.vinilos.utils.SNACKBAR_SUCCESS
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.convertMillisToLocalDateString
+import com.grupo3.vinilos.utils.generos
+import com.grupo3.vinilos.utils.selloDiscograficos
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,7 +105,7 @@ fun AlbumRegistration(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("album_name_field"),
                     value = name,
                     onValueChange = { name = it },
                     label = { Text(stringResource(id = R.string.album_registrar_nombre_album)) },
@@ -116,7 +118,7 @@ fun AlbumRegistration(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("album_cover_field"),
                     value = cover,
                     onValueChange = { cover = it },
                     label = { Text(stringResource(id = R.string.album_registrar_cover_album)) },
@@ -131,7 +133,7 @@ fun AlbumRegistration(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("album_description_field"),
                     value = descripcion,
                     onValueChange = { descripcion = it },
                     label = { Text(stringResource(id = R.string.album_registrar_descripcion_album)) },
@@ -150,7 +152,7 @@ fun AlbumRegistration(
                         .fillMaxWidth()
                         .clickable(onClick = {
                             showDialog = true
-                        }),
+                        }).testTag("album_releaseDate_field"),
                     singleLine = true,
                     value  = convertMillisToLocalDateString(dateState.selectedDateMillis),
                     onValueChange = { },
@@ -201,13 +203,13 @@ fun AlbumRegistration(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                val options = listOf(Option("Rock", "Rock"), Option("Salsa", "Salsa"))
                 DropDownList(
                     title = stringResource(id = R.string.album_registrar_generos_modal_album),
                     label = stringResource(id = R.string.album_registrar_genero_album),
                     placeholder = stringResource(id = R.string.album_registrar_genero_album),
-                    options =  options,
-                    onClick = { option -> genero = option.label }
+                    options =  generos,
+                    onClick = { option -> genero = option.label },
+                    testTag = "album_genres_field"
                 )
             }
             Row(
@@ -215,13 +217,13 @@ fun AlbumRegistration(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                val options = listOf(Option("EMI", "EMI"), Option("Elektra", "Elektra"))
                 DropDownList(
                     title = stringResource(id = R.string.album_registrar_recordlabel_modal_album),
                     label = stringResource(id = R.string.album_registrar_recordlabel_album),
                     placeholder = stringResource(id = R.string.album_registrar_recordlabel_album),
-                    options =  options,
-                    onClick = { option -> recordLabel = option.label }
+                    options =  selloDiscograficos,
+                    onClick = { option -> recordLabel = option.label },
+                    testTag = "album_recordlabels_field"
                 )
             }
             Spacer(
@@ -238,9 +240,9 @@ fun AlbumRegistration(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp)
-                        .testTag("save_song_button"),
+                        .testTag("save_song_button").testTag("album_registration_button"),
                     onClick = {
-                          if (viewModel.isFormValid(name,cover,genero,recordLabel, convertMillisToLocalDateString(dateState.selectedDateMillis))) {
+                          if (viewModel.isFormValid(name,cover,genero,recordLabel, convertMillisToLocalDateString(dateState.selectedDateMillis)) ) {
                               val album = AlbumRegistrationDto(name = name, cover = cover, genre = genero, releaseDate = Date(convertMillisToLocalDateString(dateState.selectedDateMillis)), recordLabel = recordLabel, description = descripcion)
                               viewModel.createAlbum(album)
                           }

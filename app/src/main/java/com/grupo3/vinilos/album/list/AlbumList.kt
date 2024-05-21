@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
@@ -66,6 +67,7 @@ fun AlbumList(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.testTag("album_registration_fab"),
                 containerColor = MaterialTheme.colorScheme.primary,
                 onClick = {
                     val route = Screen.AddAlbum.route

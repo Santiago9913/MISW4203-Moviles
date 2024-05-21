@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.grupo3.vinilos.R
@@ -52,12 +53,13 @@ fun DropDownList(
     title:String,
     placeholder:String,
     label:String,
-    onClick: (option:Option) -> Unit
+    onClick: (option:Option) -> Unit,
+    testTag: String?
     ){
     var value by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().testTag(testTag ?: ""),
         value  = value,
         onValueChange = {},
         singleLine = true,
