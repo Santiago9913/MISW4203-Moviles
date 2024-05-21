@@ -75,6 +75,5 @@ class AddAlbumTest {
         rule.onNodeWithTag(albumRecordLabelsTag).assertExists()
         rule.onNodeWithText(albumRegistrationButtomName).assertExists()
     }
-do Arjo
 
 }
