@@ -27,6 +27,7 @@ class AddAlbumTest {
     @get:Rule
     var rule = createComposeRule()
     lateinit var navController: TestNavHostController
+    lateinit var coleccionistaRoleName: String
     lateinit var visitanteRoleName:String
     lateinit var addAlbumFAB: String
     lateinit var albumNameTag: String;
@@ -54,6 +55,7 @@ class AddAlbumTest {
             }
         }
 
+        coleccionistaRoleName = "Coleccionista"
         visitanteRoleName = "Visitante"
         albumNameTag = "album_name_field"
         albumCoverTag = "album_cover_field"
@@ -65,8 +67,8 @@ class AddAlbumTest {
     }
 
     @Test
-    fun asVisitante_shouldBeAbleToGoToAlbumRegistration(){
-        rule.onNodeWithText(visitanteRoleName).assertExists().performClick()
+    fun asCollector_shouldBeAbleToGoToAlbumRegistration(){
+        rule.onNodeWithText(coleccionistaRoleName).assertExists().performClick()
         rule.onNodeWithTag(addAlbumFAB).assertExists().performClick()
         rule.onNodeWithTag(albumNameTag).assertExists()
         rule.onNodeWithTag(albumCoverTag).assertExists()
@@ -74,6 +76,12 @@ class AddAlbumTest {
         rule.onNodeWithTag(albumGenresTag).assertExists()
         rule.onNodeWithTag(albumRecordLabelsTag).assertExists()
         rule.onNodeWithText(albumRegistrationButtomName).assertExists()
+    }
+
+    @Test
+    fun asVisitor_shouldNotBeAbleToGoToAlbumRegistration(){
+        rule.onNodeWithText(visitanteRoleName).assertExists().performClick()
+        rule.onNodeWithTag(addAlbumFAB).assertDoesNotExist()
     }
 
 }
