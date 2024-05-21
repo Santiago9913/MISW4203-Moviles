@@ -1,6 +1,7 @@
 package com.grupo3.vinilos.album.service
 
 import com.grupo3.vinilos.album.dto.AlbumDto
+import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
 import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.dto.SongDto
 import retrofit2.http.Body
@@ -22,5 +23,5 @@ interface AlbumService {
     suspend fun addSong(@Path("albumId") albumId: Int, @Body song: SongCreateDto): SongDto
 
     @POST("albums")
-    suspend fun createAlbum(@Body album: AlbumDto): AlbumDto
+    suspend fun createAlbum(@Body album: AlbumRegistrationDto): AlbumDto
 }

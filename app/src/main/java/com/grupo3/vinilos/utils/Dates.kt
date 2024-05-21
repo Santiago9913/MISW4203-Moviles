@@ -16,6 +16,6 @@ fun convertMillisToLocalDateString(millis: Long?) : String {
         Instant
             .ofEpochMilli(millis)
             .atZone(ZoneId.systemDefault())
-            .toLocalDate().toString()
+            .toLocalDate().toString().replace("-","/")
     else ""
 }

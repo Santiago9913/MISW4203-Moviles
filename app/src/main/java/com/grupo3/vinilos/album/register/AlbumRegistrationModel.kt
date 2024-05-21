@@ -4,8 +4,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.grupo3.vinilos.album.dto.AlbumDto
+import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
 import com.grupo3.vinilos.album.list.AlbumsListState
 import com.grupo3.vinilos.album.service.AlbumRepository
+import com.grupo3.vinilos.utils.ALBUM_REGISTRADO_EXITOSAMENTE
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,12 +24,12 @@ class AlbumsRegistrationViewModel : ViewModel() {
     private val _state = MutableStateFlow(AlbumsRegistrationState())
     val state: StateFlow<AlbumsRegistrationState> = _state.asStateFlow()
 
-    fun createAlbum(album: AlbumDto) {
+    fun createAlbum(album: AlbumRegistrationDto) {
         viewModelScope.launch()  {
             withContext(Dispatchers.IO) {
                 try {
                     repository.createAlbum(album = album);
-                    _state.update { currentState -> currentState.copy(succeddMessage = "Operacion exitosa") }
+                    _state.update { currentState -> currentState.copy(succeddMessage = ALBUM_REGISTRADO_EXITOSAMENTE) }
                 } catch (e: Exception) {
                     _state.update { currentState ->
                         currentState.copy(

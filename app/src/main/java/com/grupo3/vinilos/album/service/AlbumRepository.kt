@@ -2,6 +2,7 @@ package com.grupo3.vinilos.album.service
 
 import android.util.Log
 import com.grupo3.vinilos.album.dto.AlbumDto
+import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
 import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.dto.SongDto
 import com.grupo3.vinilos.network.CacheManager
@@ -15,7 +16,7 @@ class AlbumRepository {
         return albumsService.getAlbums()
     }
 
-    suspend fun createAlbum(album: AlbumDto): AlbumDto {
+    suspend fun createAlbum(album: AlbumRegistrationDto): AlbumDto {
         return albumsService.createAlbum(album = album)
     }
 

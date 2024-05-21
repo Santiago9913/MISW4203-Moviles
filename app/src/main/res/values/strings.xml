@@ -21,6 +21,7 @@
     <!-- album registration -->
     <string name="album_registrar_nombre_album">Nombre</string>
     <string name="album_registrar_cover_album">Cover</string>
+    <string name="album_registrar_descripcion_album">Descripcion</string>
     <string name="album_registrar_fecha_lanzamiento_album">Fecha de lanzamiento</string>
     <string name="album_registrar_genero_album">Género</string>
     <string name="album_registrar_generos_modal_album">Géneros</string>
