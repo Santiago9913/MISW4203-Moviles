@@ -2,10 +2,12 @@ package com.grupo3.vinilos.album.service
 
 import android.util.Log
 import com.grupo3.vinilos.album.dto.AlbumDto
+import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
 import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.dto.SongDto
 import com.grupo3.vinilos.network.CacheManager
 import com.grupo3.vinilos.network.RetroFitInstance
+import java.util.Date
 
 class AlbumRepository {
     private val albumsService = RetroFitInstance.albumsService
@@ -14,7 +16,7 @@ class AlbumRepository {
         return albumsService.getAlbums()
     }
 
-    suspend fun createAlbum(album: AlbumDto): AlbumDto {
+    suspend fun createAlbum(album: AlbumRegistrationDto): AlbumDto {
         return albumsService.createAlbum(album = album)
     }
 
@@ -42,5 +44,9 @@ class AlbumRepository {
         val newSong = albumsService.addSong(albumId, song)
         CacheManager.getInstance().addSong(albumId, newSong)
         return newSong
+    }
+
+    fun isAlbumValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String, description:String): Boolean{
+        return !name.isEmpty() && !cover.isEmpty() && !genre.isEmpty() && !recordLabel.isEmpty() && !releaseDate.isEmpty() && !description.isEmpty()
     }
 }

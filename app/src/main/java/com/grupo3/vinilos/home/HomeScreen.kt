@@ -8,10 +8,19 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.grupo3.vinilos.album.detail.AlbumDetail
 import com.grupo3.vinilos.album.list.AlbumList
+import com.grupo3.vinilos.album.register.AlbumRegistration
 import com.grupo3.vinilos.album.songs.AddSong
 import com.grupo3.vinilos.album.songs.SongsList
 import com.grupo3.vinilos.artists.detail.ArtistDetail
@@ -34,6 +44,7 @@ import com.grupo3.vinilos.collector.list.CollectorList
 import com.grupo3.vinilos.ui.theme.Primary
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.navigateToWithState
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -48,7 +59,29 @@ fun HomeScreen(
     )
     val innerNavController = rememberNavController()
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    var snackbarType by remember { mutableStateOf("Info") }
+
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState){
+                if (snackbarType == "Info"){
+                    Snackbar(
+                        snackbarData = it,
+                        containerColor = Color(0xFF42B883),
+                        contentColor =  Color.White
+                    )
+                }
+                if (snackbarType == "Danger"){
+                    Snackbar(
+                        snackbarData = it,
+                        containerColor = Color(0xFFee0304),
+                        contentColor =  Color.White
+                    )
+                }
+            }
+        },
         bottomBar = {
             NavigationBar(
                 containerColor = Primary.copy(alpha = 0.3f)
@@ -161,6 +194,22 @@ fun HomeScreen(
                         innerNavController,
                     )
                 }, albumId = backStackEntry.arguments?.getString("albumId"))
+            }
+            composable(
+                Screen.AddAlbum.route
+            ) { backStackEntry ->
+                AlbumRegistration(navigateTo = { route: String ->
+                    navigateToWithState(
+                        route,
+                        innerNavController,
+                    )
+                },
+                showMessage = { type, message ->
+                    scope.launch {
+                        snackbarType = type ?: "Info"
+                        snackbarHostState.showSnackbar(message, duration = SnackbarDuration.Long, withDismissAction = true)
+                    }
+                })
             }
         }
     }

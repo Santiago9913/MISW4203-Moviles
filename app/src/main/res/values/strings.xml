@@ -18,6 +18,18 @@
     <string name="save_song_button">Asociar canción</string>
     <string name="song_name_duration_error">El nombre y duración de la canción son requerido</string>
     <string name="song_duration_format_error">El formato de duración debe ser MM:SS</string>
+    <!-- album registration -->
+    <string name="album_registrar_nombre_album">Nombre</string>
+    <string name="album_registrar_cover_album">Cover</string>
+    <string name="album_registrar_descripcion_album">Descripcion</string>
+    <string name="album_registrar_fecha_lanzamiento_album">Fecha de lanzamiento</string>
+    <string name="album_registrar_genero_album">Género</string>
+    <string name="album_registrar_generos_modal_album">Géneros</string>
+    <string name="album_registrar_recordlabel_album">Sello discográfico</string>
+    <string name="album_registrar_recordlabel_modal_album">Sello discográficos</string>
+    <string name="album_registrar_album">Registrar</string>
+    <string name="album_registrar_procesos_album"> "Un momento por favor..."</string>
+
     <!-- coleccionista -->
     <string name="collector_detail_title">Coleccionista</string>
     <string name="name_label">Nombre</string>
