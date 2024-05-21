@@ -42,24 +42,22 @@ fun ArtistDetail(
     viewModel: ArtistDetailViewModel = ArtistDetailViewModel(),
     artistId: String?
 ) {
-    val context = LocalContext.current
-    val state by viewModel.state.collectAsState()
+    artistId?.let {
+        val context = LocalContext.current
+        val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(state.errorMessage) {
-        state.errorMessage?.let {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        LaunchedEffect(state.errorMessage) {
+            state.errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
 
+            }
         }
-    }
-    LaunchedEffect(Unit) {
-        if (artistId != null) {
+        LaunchedEffect(Unit) {
             withContext(Dispatchers.IO) {
                 viewModel.getArtist(artistId.toInt())
             }
-        }
 
-    }
-    if (state.artist != null) {
+        }
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
@@ -193,7 +191,7 @@ fun ArtistDetail(
                 }
             }
         }
-    } else {
+    } ?: run {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
