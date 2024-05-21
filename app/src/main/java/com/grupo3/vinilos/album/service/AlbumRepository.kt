@@ -46,7 +46,7 @@ class AlbumRepository {
         return newSong
     }
 
-    fun isAlbumValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String): Boolean{
-        return !name.isEmpty() && !cover.isEmpty() && !genre.isEmpty() && !recordLabel.isEmpty() && !releaseDate.isEmpty()
+    fun isAlbumValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String, description:String): Boolean{
+        return !name.isEmpty() && !cover.isEmpty() && !genre.isEmpty() && !recordLabel.isEmpty() && !releaseDate.isEmpty() && !description.isEmpty()
     }
 }

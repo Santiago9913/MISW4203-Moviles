@@ -41,7 +41,7 @@ class AlbumsRegistrationViewModel : ViewModel() {
         }
     }
 
-    fun isFormValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String):Boolean{
-        return repository.isAlbumValid(name,cover,genre, recordLabel, releaseDate)
+    fun isFormValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String, description:String):Boolean{
+        return repository.isAlbumValid(name,cover,genre, recordLabel, releaseDate, description)
     }
 }

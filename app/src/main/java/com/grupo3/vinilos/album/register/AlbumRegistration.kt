@@ -242,7 +242,7 @@ fun AlbumRegistration(
                         .height(48.dp)
                         .testTag("save_song_button").testTag("album_registration_button"),
                     onClick = {
-                          if (viewModel.isFormValid(name,cover,genero,recordLabel, convertMillisToLocalDateString(dateState.selectedDateMillis)) ) {
+                          if (viewModel.isFormValid(name,cover,genero,recordLabel, convertMillisToLocalDateString(dateState.selectedDateMillis), descripcion)) {
                               val album = AlbumRegistrationDto(name = name, cover = cover, genre = genero, releaseDate = Date(convertMillisToLocalDateString(dateState.selectedDateMillis)), recordLabel = recordLabel, description = descripcion)
                               viewModel.createAlbum(album)
                           }
