@@ -78,8 +78,8 @@ fun AlbumRegistration(
         }
     }
 
-    LaunchedEffect(state.succeddMessage) {
-        state.succeddMessage?.let {
+    LaunchedEffect(state.succeedMessage) {
+        state.succeedMessage?.let {
             showMessage(SNACKBAR_SUCCESS, ALBUM_REGISTRADO_EXITOSAMENTE)
             navigateTo(Screen.Albums.route)
         }

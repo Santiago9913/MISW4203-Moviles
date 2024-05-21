@@ -1,11 +1,8 @@
 package com.grupo3.vinilos.album.register
 
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.grupo3.vinilos.album.dto.AlbumDto
 import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
-import com.grupo3.vinilos.album.list.AlbumsListState
 import com.grupo3.vinilos.album.service.AlbumRepository
 import com.grupo3.vinilos.utils.ALBUM_REGISTRADO_EXITOSAMENTE
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
@@ -30,7 +27,7 @@ class AlbumsRegistrationViewModel : ViewModel() {
                 try {
                     _state.update { currentState -> currentState.copy(loading = true) }
                     repository.createAlbum(album = album);
-                    _state.update { currentState -> currentState.copy(succeddMessage = ALBUM_REGISTRADO_EXITOSAMENTE, loading = false) }
+                    _state.update { currentState -> currentState.copy(succeedMessage = ALBUM_REGISTRADO_EXITOSAMENTE, loading = false) }
                 } catch (e: Exception) {
                     _state.update { currentState ->
                         currentState.copy(
