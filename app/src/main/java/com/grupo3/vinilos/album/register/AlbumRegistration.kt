@@ -1,6 +1,5 @@
 package com.grupo3.vinilos.album.register
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,7 +34,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,7 +44,6 @@ import com.grupo3.vinilos.ui.theme.UiPadding
 import androidx.compose.runtime.setValue
 import com.grupo3.vinilos.album.dto.AlbumRegistrationDto
 import com.grupo3.vinilos.shared.DropDownList
-import com.grupo3.vinilos.shared.Option
 import com.grupo3.vinilos.utils.ALBUM_CAMPOS_INVALIDOS
 import com.grupo3.vinilos.utils.ALBUM_REGISTRADO_EXITOSAMENTE
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
@@ -242,19 +239,25 @@ fun AlbumRegistration(
                         .height(48.dp)
                         .testTag("save_song_button").testTag("album_registration_button"),
                     onClick = {
+                          if (!state.loading){
                           if (viewModel.isFormValid(name,cover,genero,recordLabel, convertMillisToLocalDateString(dateState.selectedDateMillis), descripcion)) {
                               val album = AlbumRegistrationDto(name = name, cover = cover, genre = genero, releaseDate = Date(convertMillisToLocalDateString(dateState.selectedDateMillis)), recordLabel = recordLabel, description = descripcion)
                               viewModel.createAlbum(album)
                           }
                         else {
                               showMessage(SNACKBAR_ERROR, ALBUM_CAMPOS_INVALIDOS)
-                        }
+                        } }
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Accent,
                     ),
                 ) {
-                    Text(stringResource(id = R.string.album_registrar_album))
+                    if (state.loading) {
+                        Text(stringResource(id = R.string.album_registrar_procesos_album))
+                    }
+                    else {
+                        Text(stringResource(id = R.string.album_registrar_album))
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))

@@ -28,12 +28,14 @@ class AlbumsRegistrationViewModel : ViewModel() {
         viewModelScope.launch()  {
             withContext(Dispatchers.IO) {
                 try {
+                    _state.update { currentState -> currentState.copy(loading = true) }
                     repository.createAlbum(album = album);
-                    _state.update { currentState -> currentState.copy(succeddMessage = ALBUM_REGISTRADO_EXITOSAMENTE) }
+                    _state.update { currentState -> currentState.copy(succeddMessage = ALBUM_REGISTRADO_EXITOSAMENTE, loading = false) }
                 } catch (e: Exception) {
                     _state.update { currentState ->
                         currentState.copy(
-                            errorMessage = ERROR_MESSAGE
+                            errorMessage = ERROR_MESSAGE,
+                            loading = false,
                         )
                     }
                 }

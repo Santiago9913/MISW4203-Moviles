@@ -5,5 +5,6 @@ import java.util.Date
 
 data class AlbumsRegistrationState (
     val errorMessage: String? = null,
-    val succeddMessage: String? = null
+    val succeddMessage: String? = null,
+    var loading:Boolean = false
 )

@@ -28,6 +28,8 @@
     <string name="album_registrar_recordlabel_album">Sello discográfico</string>
     <string name="album_registrar_recordlabel_modal_album">Sello discográficos</string>
     <string name="album_registrar_album">Registrar</string>
+    <string name="album_registrar_procesos_album"> "Un momento por favor..."</string>
+
     <!-- coleccionista -->
     <string name="collector_detail_title">Coleccionista</string>
     <string name="name_label">Nombre</string>
