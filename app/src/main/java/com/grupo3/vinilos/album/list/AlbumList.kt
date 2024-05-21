@@ -1,5 +1,6 @@
 package com.grupo3.vinilos.album.list
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -37,7 +38,9 @@ import androidx.compose.ui.res.painterResource
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
+import com.grupo3.vinilos.utils.ES_VISITANTE
 import com.grupo3.vinilos.utils.Screen
+import com.grupo3.vinilos.utils.USER_PREFS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Dispatcher
@@ -50,6 +53,8 @@ fun AlbumList(
     val context = LocalContext.current
 
     val state by viewModel.state.collectAsState()
+
+    var sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
     LaunchedEffect(state.errorMessage) {
         state.errorMessage?.let {
@@ -66,22 +71,24 @@ fun AlbumList(
     Scaffold(topBar = { },
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier.testTag("album_registration_fab"),
-                containerColor = MaterialTheme.colorScheme.primary,
-                onClick = {
-                    val route = Screen.AddAlbum.route
-                    navigateTo(route)
-                },
-            ) {
-                Image(
-                    painter = painterResource(id = Screen.AddAlbum.icon!!),
-                    contentDescription = "",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .width(24.dp)
-                        .height(24.dp)
-                )
+            if (!sharedPreferences.getBoolean(ES_VISITANTE, false)){
+                    FloatingActionButton(
+                        modifier = Modifier.testTag("album_registration_fab"),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        onClick = {
+                            val route = Screen.AddAlbum.route
+                            navigateTo(route)
+                        },
+                    ) {
+                        Image(
+                            painter = painterResource(id = Screen.AddAlbum.icon!!),
+                            contentDescription = "",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .width(24.dp)
+                                .height(24.dp)
+                        )
+                    }
             }
         }
         ) {
