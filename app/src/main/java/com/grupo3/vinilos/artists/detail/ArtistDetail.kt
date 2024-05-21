@@ -42,22 +42,24 @@ fun ArtistDetail(
     viewModel: ArtistDetailViewModel = ArtistDetailViewModel(),
     artistId: String?
 ) {
-    artistId?.let {
-        val context = LocalContext.current
-        val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
+    val state by viewModel.state.collectAsState()
 
-        LaunchedEffect(state.errorMessage) {
-            state.errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
 
-            }
         }
-        LaunchedEffect(Unit) {
+    }
+    LaunchedEffect(Unit) {
+        if (artistId != null) {
             withContext(Dispatchers.IO) {
                 viewModel.getArtist(artistId.toInt())
             }
         }
 
+    }
+    if (state.artist != null) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
@@ -77,7 +79,7 @@ fun ArtistDetail(
                     horizontalArrangement = Arrangement.Center,
                 ) {
                     AsyncImage(
-                        model = state.artist.image,
+                        model = state.artist!!.image,
                         modifier = Modifier
                             .height(300.dp)
                             .width(300.dp)
@@ -85,7 +87,7 @@ fun ArtistDetail(
                                 top = UiPadding.medium,
                                 bottom = UiPadding.medium,
                             )
-                            .testTag("artistImage_" + state.artist.image),
+                            .testTag("artistImage_" + state.artist!!.image),
                         contentDescription = stringResource(id = R.string.artists_not_available)
                     )
                 }
@@ -100,7 +102,7 @@ fun ArtistDetail(
 
                     ) {
                     Text(
-                        text = state.artist.name,
+                        text = state.artist!!.name,
                         fontWeight = FontWeight.Bold,
                         fontSize = MaterialTheme.typography.titleLarge.fontSize
                     )
@@ -115,10 +117,10 @@ fun ArtistDetail(
                 ) {
                     Text(
                         "${stringResource(id = R.string.artist_fecha_nacimiento_label)}: ${
-                            state.artist.birthDate?.let { it1 ->
+                            state.artist!!.birthDate?.let { it1 ->
                                 parseDateToDDMMYYYY(it1)
                             } ?: run {
-                                state.artist.creationDate?.let { it1 -> parseDateToDDMMYYYY(it1) }
+                                state.artist!!.creationDate?.let { it1 -> parseDateToDDMMYYYY(it1) }
                             }
                         }",
                         style = MaterialTheme.typography.bodyLarge,
@@ -134,7 +136,7 @@ fun ArtistDetail(
                         ),
                 ) {
                     Text(
-                        state.artist.description,
+                        state.artist!!.description,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -163,7 +165,7 @@ fun ArtistDetail(
                         Text(text = "Albumes")
                     }
                 }
-                if (state.artist.creationDate != null) {
+                if (state.artist!!.creationDate != null) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -191,7 +193,7 @@ fun ArtistDetail(
                 }
             }
         }
-    } ?: run {
+    } else {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
