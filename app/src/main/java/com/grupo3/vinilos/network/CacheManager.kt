@@ -24,87 +24,71 @@ object CacheManager {
     }
 
     suspend fun addSong(albumId: Int, song: SongDto) {
-        delay(20)
         val songs = getSongs(albumId).second.toMutableList()
         songs.add(song)
         songsCache[albumId] = Pair(true, songs)
     }
 
-    suspend fun addSongs(albumId: Int, songs: List<SongDto>) {
-        delay(20)
+    fun addSongs(albumId: Int, songs: List<SongDto>) {
         if (!songsCache.containsKey(albumId)) {
             songsCache[albumId] = Pair(true, songs)
         }
     }
 
-    suspend fun getSongs(albumId: Int): Pair<Boolean, List<SongDto>> {
-        delay(20)
+    fun getSongs(albumId: Int): Pair<Boolean, List<SongDto>> {
         return songsCache[albumId] ?: Pair(false, emptyList())
     }
 
-    suspend fun addAlbums(albums: List<AlbumDto>) {
-        delay(20)
+    fun addAlbums(albums: List<AlbumDto>) {
         albumsCache.addAll(albums)
 
     }
 
-    suspend fun getAlbums(): List<AlbumDto> {
-        delay(20)
+    fun getAlbums(): List<AlbumDto> {
         return albumsCache
     }
 
-    suspend fun getAlbumById(albumId: Int): AlbumDto? {
-        delay(20)
+    fun getAlbumById(albumId: Int): AlbumDto? {
         return albumsCache.find { it.id == albumId }
     }
 
-    suspend fun addAlbum(newAlbum: AlbumDto) {
-        delay(20)
+    fun addAlbum(newAlbum: AlbumDto) {
         albumsCache.add(newAlbum)
     }
 
-    suspend fun addBands(bands: List<ArtistDto>) {
-        delay(20)
+    fun addBands(bands: List<ArtistDto>) {
         bandsCache.addAll(bands)
     }
 
-    suspend fun addMusicians(musicians: List<ArtistDto>) {
-        delay(10)
+    fun addMusicians(musicians: List<ArtistDto>) {
         musiciansCache.addAll(musicians)
     }
 
-    suspend fun getBands(): List<ArtistDto> {
-        delay(20)
+    fun getBands(): List<ArtistDto> {
         return bandsCache
     }
 
-    suspend fun getMusicians(): List<ArtistDto> {
-        delay(20)
+    fun getMusicians(): List<ArtistDto> {
         return musiciansCache
     }
 
-    suspend fun getBandById(bandId: Int): ArtistDto? {
-        delay(20)
+    fun getBandById(bandId: Int): ArtistDto? {
         return bandsCache.find { it.id == bandId }
     }
 
-    suspend fun getMusicianById(musicianId: Int): ArtistDto? {
-        delay(20)
+    fun getMusicianById(musicianId: Int): ArtistDto? {
         return musiciansCache.find { it.id == musicianId }
     }
 
-    suspend fun getCollectors(): List<CollectorDto> {
-        delay(20)
+    fun getCollectors(): List<CollectorDto> {
         return collectorsCache
     }
 
-    suspend fun addCollectors(collectors: List<CollectorDto>) {
-        delay(20)
+    fun addCollectors(collectors: List<CollectorDto>) {
         collectorsCache.addAll(collectors)
     }
 
-    suspend fun getCollectorById(collectorId: Int): CollectorDto? {
-        delay(20)
+    fun getCollectorById(collectorId: Int): CollectorDto? {
         return collectorsCache.find { it.id == collectorId }
     }
 }

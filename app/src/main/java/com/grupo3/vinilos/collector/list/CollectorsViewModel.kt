@@ -2,8 +2,10 @@ package com.grupo3.vinilos.collector.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.collector.service.CollectorRepository
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,16 +18,20 @@ class CollectorsViewModel : ViewModel() {
     private val _state = MutableStateFlow(CollectorsListState())
     val state: StateFlow<CollectorsListState> = _state.asStateFlow()
 
-    suspend fun getCollectors() {
-        try {
-            val collectors = repository.getCollectors()
+    fun getCollectors() {
 
-            _state.update { currentState ->
-                currentState.copy(
-                    collectors = collectors,
-                    errorMessage = null
-                )
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val collectors = repository.getCollectors()
+
+                _state.update { currentState ->
+                    currentState.copy(
+                        collectors = collectors,
+                        errorMessage = null
+                    )
+                }
             }
+
         } catch (e: Exception) {
             _state.update { currentState ->
                 currentState.copy(
