@@ -45,9 +45,7 @@ fun CollectorList(
     }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            viewModel.getCollectors()
-        }
+        viewModel.getCollectors()
     }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
