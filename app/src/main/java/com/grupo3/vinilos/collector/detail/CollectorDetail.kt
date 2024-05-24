@@ -23,12 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
-
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -47,9 +44,7 @@ fun CollectorDetail(
             }
         }
         LaunchedEffect(Unit) {
-            withContext(Dispatchers.IO) {
-                viewModel.getCollector(collectorId.toInt())
-            }
+            viewModel.getCollector(collectorId.toInt())
         }
         Box(modifier = Modifier.fillMaxSize()) {
             Column(

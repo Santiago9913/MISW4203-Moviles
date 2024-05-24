@@ -36,8 +36,6 @@ import com.grupo3.vinilos.ui.theme.background
 import com.grupo3.vinilos.utils.ES_VISITANTE
 import com.grupo3.vinilos.utils.Screen
 import com.grupo3.vinilos.utils.USER_PREFS
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @Composable
 fun SongsList(
@@ -56,9 +54,7 @@ fun SongsList(
 
     LaunchedEffect(Unit) {
         if (albumId != null) {
-            withContext(Dispatchers.IO) {
-                viewModel.getSongs(albumId.toInt())
-            }
+            viewModel.getSongs(albumId.toInt())
         }
     }
 
