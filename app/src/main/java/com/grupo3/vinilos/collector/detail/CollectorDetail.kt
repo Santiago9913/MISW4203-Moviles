@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
@@ -31,7 +33,7 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun CollectorDetail(
-    viewModel: CollectorDetailViewModel = CollectorDetailViewModel(),
+    viewModel: CollectorDetailViewModel = viewModel(),
     collectorId: String?
 ) {
     collectorId?.let {

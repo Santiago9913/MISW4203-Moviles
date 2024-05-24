@@ -2,7 +2,6 @@ package com.grupo3.vinilos.collector.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.collector.service.CollectorRepository
 import com.grupo3.vinilos.utils.ERROR_MESSAGE
 import kotlinx.coroutines.Dispatchers

@@ -4,7 +4,6 @@ import com.grupo3.vinilos.album.dto.AlbumDto
 import com.grupo3.vinilos.album.dto.SongDto
 import com.grupo3.vinilos.artists.dto.ArtistDto
 import com.grupo3.vinilos.collector.dto.CollectorDto
-import kotlinx.coroutines.delay
 
 object CacheManager {
 
@@ -23,7 +22,7 @@ object CacheManager {
         }
     }
 
-    suspend fun addSong(albumId: Int, song: SongDto) {
+    fun addSong(albumId: Int, song: SongDto) {
         val songs = getSongs(albumId).second.toMutableList()
         songs.add(song)
         songsCache[albumId] = Pair(true, songs)
