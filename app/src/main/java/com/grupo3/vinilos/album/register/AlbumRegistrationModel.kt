@@ -22,11 +22,11 @@ class AlbumsRegistrationViewModel : ViewModel() {
     val state: StateFlow<AlbumsRegistrationState> = _state.asStateFlow()
 
     fun createAlbum(album: AlbumRegistrationDto) {
-        viewModelScope.launch()  {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
                     _state.update { currentState -> currentState.copy(loading = true) }
-                    repository.createAlbum(album = album);
+                    repository.createAlbum(album = album)
                     _state.update { currentState -> currentState.copy(succeedMessage = ALBUM_REGISTRADO_EXITOSAMENTE, loading = false) }
                 } catch (e: Exception) {
                     _state.update { currentState ->

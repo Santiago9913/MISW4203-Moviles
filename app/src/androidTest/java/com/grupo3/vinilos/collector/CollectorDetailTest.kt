@@ -1,4 +1,4 @@
-package com.grupo3.vinilos.collector.detail
+package com.grupo3.vinilos.collector
 
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule

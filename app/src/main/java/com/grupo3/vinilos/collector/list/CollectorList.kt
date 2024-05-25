@@ -25,8 +25,6 @@ import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 @Composable
