@@ -7,7 +7,6 @@ import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.dto.SongDto
 import com.grupo3.vinilos.network.CacheManager
 import com.grupo3.vinilos.network.RetroFitInstance
-import java.util.Date
 
 class AlbumRepository {
     private val albumsService = RetroFitInstance.albumsService
@@ -67,6 +66,7 @@ class AlbumRepository {
     }
 
     fun isAlbumValid(name:String, cover:String, genre:String, recordLabel: String, releaseDate: String, description:String): Boolean{
-        return !name.isEmpty() && !cover.isEmpty() && !genre.isEmpty() && !recordLabel.isEmpty() && !releaseDate.isEmpty() && !description.isEmpty()
+        return name.isNotEmpty() && cover.isNotEmpty() && genre.isNotEmpty() &&
+                recordLabel.isNotEmpty() && releaseDate.isNotEmpty() && description.isNotEmpty()
     }
 }

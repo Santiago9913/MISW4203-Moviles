@@ -41,7 +41,7 @@ class AlbumDetailViewModel : ViewModel() {
     }
 
     fun addSong(albumId: Int, song: SongCreateDto) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             try {
                 val newSong = repository.addSong(albumId, song)
                 _state.update { currentState ->
