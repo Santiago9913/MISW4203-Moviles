@@ -32,7 +32,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.UiPadding
 
 class Option(val _label:String, val _value: String){
