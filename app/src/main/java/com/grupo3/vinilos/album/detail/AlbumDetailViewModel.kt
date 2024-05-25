@@ -2,7 +2,10 @@ package com.grupo3.vinilos.album.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.grupo3.vinilos.album.dto.SongCreateDto
 import com.grupo3.vinilos.album.service.AlbumRepository
+import com.grupo3.vinilos.utils.ERROR_MESSAGE
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,17 +18,19 @@ class AlbumDetailViewModel : ViewModel() {
     private val _state = MutableStateFlow(AlbumDetailState())
     val state: StateFlow<AlbumDetailState> = _state.asStateFlow()
 
-    suspend fun getAlbumDetail(albumId: Int) {
-        val album = repository.getAlbumsById(albumId)
-        _state.update { currentState ->
-            currentState.copy(
-                album = album,
-            )
+    fun getAlbumDetail(albumId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val album = repository.getAlbumsById(albumId)
+            _state.update { currentState ->
+                currentState.copy(
+                    album = album,
+                )
+            }
         }
     }
 
-    suspend fun getSongs(albumId: Int) {
-        if (albumId != null) {
+    fun getSongs(albumId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
             val songs = repository.getSongs(albumId)
             _state.update { currentState ->
                 currentState.copy(
@@ -33,6 +38,25 @@ class AlbumDetailViewModel : ViewModel() {
                 )
             }
         }
+    }
 
+    fun addSong(albumId: Int, song: SongCreateDto) {
+        viewModelScope.launch {
+            try {
+                val newSong = repository.addSong(albumId, song)
+                _state.update { currentState ->
+                    currentState.copy(
+                        songs = currentState.songs + newSong,
+                        errorMessage = null
+                    )
+                }
+            } catch (e: Exception) {
+                _state.update { currentState ->
+                    currentState.copy(
+                        errorMessage = ERROR_MESSAGE
+                    )
+                }
+            }
+        }
     }
 }

@@ -33,8 +33,6 @@ import com.grupo3.vinilos.ui.theme.Accent
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.parseDateToDDMMYYYY
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -53,11 +51,8 @@ fun ArtistDetail(
             }
         }
         LaunchedEffect(Unit) {
-            withContext(Dispatchers.IO) {
-                viewModel.getArtist(artistId.toInt())
-            }
+            viewModel.getArtist(artistId.toInt())
         }
-
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
@@ -77,7 +72,7 @@ fun ArtistDetail(
                     horizontalArrangement = Arrangement.Center,
                 ) {
                     AsyncImage(
-                        model = state.artist.image,
+                        model = state.artist!!.image,
                         modifier = Modifier
                             .height(300.dp)
                             .width(300.dp)
@@ -85,7 +80,7 @@ fun ArtistDetail(
                                 top = UiPadding.medium,
                                 bottom = UiPadding.medium,
                             )
-                            .testTag("artistImage_" + state.artist.image),
+                            .testTag("artistImage_" + state.artist!!.image),
                         contentDescription = stringResource(id = R.string.artists_not_available)
                     )
                 }
@@ -100,7 +95,7 @@ fun ArtistDetail(
 
                     ) {
                     Text(
-                        text = state.artist.name,
+                        text = state.artist!!.name,
                         fontWeight = FontWeight.Bold,
                         fontSize = MaterialTheme.typography.titleLarge.fontSize
                     )
@@ -115,10 +110,10 @@ fun ArtistDetail(
                 ) {
                     Text(
                         "${stringResource(id = R.string.artist_fecha_nacimiento_label)}: ${
-                            state.artist.birthDate?.let { it1 ->
+                            state.artist!!.birthDate?.let { it1 ->
                                 parseDateToDDMMYYYY(it1)
                             } ?: run {
-                                state.artist.creationDate?.let { it1 -> parseDateToDDMMYYYY(it1) }
+                                state.artist!!.creationDate?.let { it1 -> parseDateToDDMMYYYY(it1) }
                             }
                         }",
                         style = MaterialTheme.typography.bodyLarge,
@@ -134,7 +129,7 @@ fun ArtistDetail(
                         ),
                 ) {
                     Text(
-                        state.artist.description,
+                        state.artist!!.description,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -160,10 +155,10 @@ fun ArtistDetail(
                             containerColor = Accent,
                         ),
                     ) {
-                        Text(text = "Albumes")
+                        Text(text = stringResource(id = R.string.artist_ver_albumes_discografia))
                     }
                 }
-                if (state.artist.creationDate != null) {
+                if (state.artist!!.creationDate != null) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

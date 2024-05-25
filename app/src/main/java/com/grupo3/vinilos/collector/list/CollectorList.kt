@@ -24,12 +24,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.grupo3.vinilos.R
 import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.grupo3.vinilos.utils.Screen
 
 
 @Composable
-fun CollectorList(viewModel: CollectorsViewModel = viewModel()) {
+fun CollectorList(
+    viewModel: CollectorsViewModel = viewModel(),
+    navigateTo: (String) -> Unit
+) {
     val context = LocalContext.current
 
     val state by viewModel.state.collectAsState()
@@ -41,9 +43,7 @@ fun CollectorList(viewModel: CollectorsViewModel = viewModel()) {
     }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            viewModel.getCollectors()
-        }
+        viewModel.getCollectors()
     }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -68,7 +68,11 @@ fun CollectorList(viewModel: CollectorsViewModel = viewModel()) {
                             .fillMaxHeight()
                             .fillMaxWidth()
                             .clickable {
-                                // TODO: Navigate to collector detail screen
+                                var route = StringBuilder()
+                                    .append(Screen.CollectorDetail.route)
+                                    .toString()
+                                    .replace("{collectorId}", collector.id.toString())
+                                navigateTo(route)
                             }) {
                         Column {
                             Text(

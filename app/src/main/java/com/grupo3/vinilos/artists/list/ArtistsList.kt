@@ -28,14 +28,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.grupo3.vinilos.ui.theme.Typography
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.grupo3.vinilos.R
+import com.grupo3.vinilos.ui.theme.Typography
 import com.grupo3.vinilos.ui.theme.UiPadding
 import com.grupo3.vinilos.utils.Screen
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -53,9 +51,7 @@ fun ArtistList(
         }
     }
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            viewModel.getArtists()
-        }
+        viewModel.getArtists()
     }
 
     Box(
@@ -84,8 +80,7 @@ fun ArtistList(
                             .fillMaxHeight()
                             .fillMaxWidth()
                             .clickable {
-                                // TODO: implement the action to go to the artist detail screen
-                                var route = StringBuilder()
+                                val route = StringBuilder()
                                     .append(Screen.ArtistDetail.route)
                                     .toString()
                                     .replace("{artistId}", artist.id.toString())
