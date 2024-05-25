@@ -113,7 +113,7 @@ fun DropDownList(
                             var option = options.get(index = index)
                             Row(modifier = Modifier
                                 .fillMaxWidth()
-                                .height(40.dp)) {
+                                .height(48.dp)) {
                                 TextButton(onClick = { value = option.label; showDialog = false; onClick(option) }, colors =  ButtonDefaults.textButtonColors(contentColor = Color.Black) ) {
                                     Text (modifier = Modifier.fillMaxWidth(), text = option.label, textAlign = TextAlign.Center)
                                 }

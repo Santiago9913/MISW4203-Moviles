@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -99,7 +101,7 @@ fun HomeScreen(
                             it.route == screen.route
                         } == true,
                         label = {
-                            Text(text = screen.label)
+                            Text(text = screen.label, modifier = Modifier.semantics { this.contentDescription = screen.contentDescription ?: "" })
                         },
                         onClick = {
                             navigateToWithState(screen.route, innerNavController)
@@ -107,7 +109,7 @@ fun HomeScreen(
                         icon = {
                             Image(
                                 painter = painterResource(id = screen.icon!!),
-                                contentDescription = "",
+                                contentDescription = screen.contentDescription,
                                 contentScale = ContentScale.Fit,
                                 modifier = Modifier
                                     .width(24.dp)

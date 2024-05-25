@@ -155,7 +155,7 @@ fun ArtistDetail(
                             containerColor = Accent,
                         ),
                     ) {
-                        Text(text = "Albumes")
+                        Text(text = stringResource(id = R.string.artist_ver_albumes_discografia))
                     }
                 }
                 if (state.artist!!.creationDate != null) {

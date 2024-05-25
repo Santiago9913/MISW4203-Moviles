@@ -9,6 +9,7 @@
     <string name="artist_not_available">ARTISTA O BANDA NO DISPONIBLE EN ESTE MOMENTO</string>
     <string name="artist_fecha_nacimiento_label">Fecha de nacimiento</string>
     <string name="artist_fecha_creacion_label">Fecha de creacion</string>
+    <string name="artist_ver_albumes_discografia">Ver albumes y discografía</string>
     <string name="songs_not_available">CANCIONES NO DISPONIBLES EN EL MOMENTO</string>
     <!-- songs -->
     <string name="add_song_button">Añadir canción</string>
